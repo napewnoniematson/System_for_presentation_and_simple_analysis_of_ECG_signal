@@ -4,8 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
+import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.LoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
 
@@ -27,20 +31,15 @@ public class Main implements Initializable{
     private LoadManager loadManager;
     @FXML
     private ChartPresentation chartPresentation;
-
+//    @FXML
+//    private LineChart<Number, Number> ecgLineChart;
 
     @FXML
     private void onLoadBtnClick(ActionEvent event){
-        loadManager.load(); // returns ECGSignal
+        ECGSignal ecgSignal = loadManager.load(); // returns ECGSignal
         viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
         LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
-        if (lineChart == null)
-            System.out.println("jest null");
-        else
-            System.out.println(lineChart.getHeight());
-
-        int x = chartPresentation.getCounterTest();
-        System.out.println(x);
+        lineChart.getData().add(new ChartManager(lineChart,ecgSignal).prepareChartData());
     }
 
     @FXML
