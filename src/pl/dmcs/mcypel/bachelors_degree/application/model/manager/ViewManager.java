@@ -20,6 +20,7 @@ public class ViewManager {
     private Scene scene;
     private Stage stage;
 
+    // TODO: 24.11.2016 zobaczyc rozmiary widokow
     public ViewManager(){
 
     }
