@@ -4,6 +4,8 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -20,9 +22,14 @@ public class SaveManager {
         return node.snapshot(new SnapshotParameters(), null);
     }
 
-    public void saveChartImage(WritableImage writableImage){
-        // TODO: 20.11.2016 prepare method for chooosing file directory - file chooser
-        File file = new File("charttestimage.png");
+    private File prepareSaveFile(Window window){
+        FileChooser fileChooser = new FileChooser();
+        return fileChooser.showOpenDialog(window);
+        // TODO: 26.11.2016 dodać zabezpieczenia jakies null, jak cancel poelci itp
+    }
+
+    public void saveImage(WritableImage writableImage){
+        File file = prepareSaveFile(null);
         try{
             ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
 
