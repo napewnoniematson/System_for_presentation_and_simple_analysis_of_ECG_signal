@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
  */
 public class ChartPresentation implements Initializable {
 
+    // TODO: 24.11.2016 generowanie wykresu w nowym watku
+
     private int counter = 0;
     @FXML
     private LineChart lineChart;

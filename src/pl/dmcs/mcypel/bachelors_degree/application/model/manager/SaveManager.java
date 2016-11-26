@@ -12,6 +12,8 @@ import java.io.IOException;
  */
 public class SaveManager {
 
+    // TODO: 24.11.2016 zapis w nowym watku -- ????
+
     public SaveManager(){
 
     }

@@ -23,6 +23,8 @@ public class LoadManager {
         directoryChooser = new DirectoryChooser();
     }
 
+    // TODO: 24.11.2016 wczytywanie danych w nowym watku -- tu tez?
+
     public ECGSignal load(){
         chooseFolder();
 

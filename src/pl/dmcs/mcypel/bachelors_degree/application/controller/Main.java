@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
  */
 public class Main implements Initializable{
 
+    // TODO: 24.11.2016 bindowanie + propertasy do wyswietlania danych pacjenta ??
+
     private static final String CHART_PRESENTATION_FXML_PATH = "../../view/included/chart_presentation.fxml";
     private static final String PATIENT_DATA_FXML_PATH = "../../view/included/patient_data.fxml";
     private static final String PARAMETERS_FXML_PATH = "../../view/included/parameters.fxml";
