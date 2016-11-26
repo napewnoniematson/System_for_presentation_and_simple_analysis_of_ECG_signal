@@ -39,35 +39,28 @@ public class PrintManager {
         }
         return box;
     }
-//
-//    private boolean preparePageAttributes(PrinterJob job){
-//        job = PrinterJob.createPrinterJob();
-//    }
 
-    private void preparePageForPrint(Window window){
+    private void preparePage(Window window) {
 
-        if (job != null){
-            job.showPageSetupDialog(window); //zwraca boolean <- true gdy ktos zatwierdzi zmiany false gdy cancel albo nie wyskoczy okienko
-        }
-
+        job.showPageSetupDialog(window); //zwraca boolean <- true gdy ktos zatwierdzi zmiany false gdy cancel albo nie wyskoczy okienko
     }
 
 
     private void preparePrint(Window window) {
 
-        if (job != null){
-            job.showPrintDialog(window); // to samo co w preparePageForPrint
-        }
+        job.showPrintDialog(window); // to samo co w preparePage
     }
 
     //cancel print?
     //resizing node ?
-    private void print(Node node) {
+    private void print(Window window, Node node) {
 
         //ify po showprint showpage i wtedy w zaleznosci od nich zmieniac printowanie czy w/e?
         boolean isDone = false;
 
         if (job != null) {
+            preparePage(window);
+            preparePrint(window);
             isDone = job.printPage(node);
 
             if (isDone)
