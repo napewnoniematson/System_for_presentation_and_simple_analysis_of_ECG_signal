@@ -21,6 +21,13 @@ public class ChartPresentationController implements Initializable {
     @FXML
     private LineChart lineChart;
 
+
+    public void generateChart(){
+
+    }
+
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         chartManager = new ChartManager();

@@ -39,13 +39,18 @@ public class MainController implements Initializable{
     private void onLoadBtnClick(ActionEvent event){
         // TODO: 23.11.2016 dodatkowy button do przechodzenia na chart bo jak wroce do load to musze otwierac plik na nowo zamiast miec wykres
 //        ECGSignal ecgSignal = loadManager.load(); // returns ECGSignal
-//        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
+
 //        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
 //        lineChart.getData().add(new ChartManager(lineChart, ecgSignal).prepareChartData());
         if (includedViewController == null)
             System.out.println("jest null");
         else
             System.out.println("nie jest null");
+    }
+
+    @FXML
+    private void onChartBtnClick(ActionEvent event){
+        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
     }
 
     @FXML
