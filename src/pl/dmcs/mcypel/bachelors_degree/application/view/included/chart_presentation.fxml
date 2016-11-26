@@ -10,12 +10,13 @@
             prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ChartPresentationController">
    <center>
-      <LineChart fx:id = "ecgLineChart" legendSide="RIGHT" title="ECG signal" BorderPane.alignment="CENTER">
+      <LineChart fx:id = "ecgLineChart" legendSide="RIGHT" title="ECG signal" BorderPane.alignment="CENTER"
+                 createSymbols="false" animated="false">
         <xAxis>
-          <NumberAxis side="BOTTOM" fx:id="xAxis"  />
+          <NumberAxis side="BOTTOM" fx:id="xAxis" autoRanging="false" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" fx:id="yAxis" />
+          <NumberAxis side="LEFT" fx:id="yAxis" autoRanging="false"/>
         </yAxis>
       </LineChart>
    </center>

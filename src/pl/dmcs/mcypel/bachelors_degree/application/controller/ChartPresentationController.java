@@ -28,6 +28,7 @@ public class ChartPresentationController implements Initializable {
 
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         chartManager = new ChartManager();

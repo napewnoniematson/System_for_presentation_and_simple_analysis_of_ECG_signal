@@ -37,7 +37,6 @@ public class MainController implements Initializable{
 
     @FXML
     private void onLoadBtnClick(ActionEvent event){
-        // TODO: 23.11.2016 dodatkowy button do przechodzenia na chart bo jak wroce do load to musze otwierac plik na nowo zamiast miec wykres
 //        ECGSignal ecgSignal = loadManager.load(); // returns ECGSignal
 
 //        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();

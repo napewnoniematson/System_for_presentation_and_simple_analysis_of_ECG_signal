@@ -32,7 +32,6 @@ public class ChartManager {
         // TODO: 23.11.2016 sparametryzowac metode, zrobic bardziej uniwersalna, lowerbound,upperbound
         XYChart.Series chartData = new XYChart.Series();
         chartData.setName("ChartData");
-
         for(int i = 100000; i < 101000; ++i){
             chartData.getData().add(new XYChart.Data(i, ecgSignal.getChannel(0)[i]));
         }
