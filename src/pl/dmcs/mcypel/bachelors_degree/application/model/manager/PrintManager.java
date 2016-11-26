@@ -34,6 +34,7 @@ public class PrintManager {
         VBox box = new VBox();
 
         for (Node node : nodes) {
+
             box.getChildren().add(node);
         }
         return box;
@@ -45,12 +46,18 @@ public class PrintManager {
 
     private void preparePageForPrint(Window window){
 
+        if (job != null){
+            job.showPageSetupDialog(window); //zwraca boolean <- true gdy ktos zatwierdzi zmiany false gdy cancel albo nie wyskoczy okienko
+        }
 
     }
 
 
     private void preparePrint(Window window) {
 
+        if (job != null){
+            job.showPrintDialog(window); // to samo co w preparePageForPrint
+        }
     }
 
     //cancel print?
