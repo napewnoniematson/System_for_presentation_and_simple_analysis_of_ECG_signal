@@ -38,30 +38,4 @@ public class ChartManager {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Gets the linechart's snapshot for image saving
-     *
-     * @param lineChart the linechart from where snapshot is taken
-     * @return linechart's snapshot
-     */
-    public WritableImage getChartSnapshot(LineChart lineChart){
-        return lineChart.snapshot(new SnapshotParameters(), null);
-
-    }
-
-
 }
