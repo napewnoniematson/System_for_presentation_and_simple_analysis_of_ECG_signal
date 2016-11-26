@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Matson on 21.11.2016.
  */
-public class ChartPresentation implements Initializable {
+public class ChartPresentationController implements Initializable {
 
     // TODO: 24.11.2016 generowanie wykresu w nowym watku
 

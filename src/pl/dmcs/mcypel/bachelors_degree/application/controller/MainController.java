@@ -4,9 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartManager;
@@ -19,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Matson on 19.11.2016.
  */
-public class Main implements Initializable{
+public class MainController implements Initializable{
 
     // TODO: 24.11.2016 bindowanie + propertasy do wyswietlania danych pacjenta ??
 
@@ -32,7 +29,7 @@ public class Main implements Initializable{
     private ViewManager viewManager;
     private LoadManager loadManager;
     @FXML
-    private ChartPresentation chartPresentation;
+    private ChartPresentationController chartPresentationController;
 //    @FXML
 //    private LineChart<Number, Number> ecgLineChart;
 

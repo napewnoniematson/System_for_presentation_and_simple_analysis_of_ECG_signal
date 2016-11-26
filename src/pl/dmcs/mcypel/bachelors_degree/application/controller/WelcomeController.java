@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Matson on 19.11.2016.
  */
-public class Welcome implements Initializable {
+public class WelcomeController implements Initializable {
 
     private static final String MAIN_FXML_PATH = "../../view/main/main.fxml";
 

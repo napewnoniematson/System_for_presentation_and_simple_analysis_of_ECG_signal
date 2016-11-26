@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="220.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/null"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.Main">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
 
 
    <top>
