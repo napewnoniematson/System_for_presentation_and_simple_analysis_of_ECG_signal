@@ -19,6 +19,8 @@ public class ChartManager {
     private ECGSignal ecgSignal; // chyba ze nie musze tych pol posiadac
     private LineChart lineChart;
 
+    public ChartManager(){}
+
     public ChartManager(LineChart lineChart, ECGSignal ecgSignal){
         this.lineChart = lineChart;
         this.ecgSignal = ecgSignal;

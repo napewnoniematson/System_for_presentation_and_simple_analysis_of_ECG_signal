@@ -2,6 +2,7 @@ package pl.dmcs.mcypel.bachelors_degree.application.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.layout.BorderPane;
@@ -10,6 +11,7 @@ import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.LoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,18 +31,21 @@ public class MainController implements Initializable{
     private ViewManager viewManager;
     private LoadManager loadManager;
     @FXML
-    private ChartPresentationController chartPresentationController;
+    private ChartPresentationController includedViewController;
 //    @FXML
 //    private LineChart<Number, Number> ecgLineChart;
 
     @FXML
     private void onLoadBtnClick(ActionEvent event){
         // TODO: 23.11.2016 dodatkowy button do przechodzenia na chart bo jak wroce do load to musze otwierac plik na nowo zamiast miec wykres
-        ECGSignal ecgSignal = loadManager.load(); // returns ECGSignal
-        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
-        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
-        lineChart.getData().add(new ChartManager(lineChart, ecgSignal).prepareChartData());
-
+//        ECGSignal ecgSignal = loadManager.load(); // returns ECGSignal
+//        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
+//        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
+//        lineChart.getData().add(new ChartManager(lineChart, ecgSignal).prepareChartData());
+        if (includedViewController == null)
+            System.out.println("jest null");
+        else
+            System.out.println("nie jest null");
     }
 
     @FXML

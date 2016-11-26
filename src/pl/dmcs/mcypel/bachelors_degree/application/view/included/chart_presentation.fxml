@@ -8,7 +8,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
+            fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ChartPresentationController">
    <center>
       <LineChart fx:id = "ecgLineChart" legendSide="RIGHT" title="ECG signal" BorderPane.alignment="CENTER">
         <xAxis>
