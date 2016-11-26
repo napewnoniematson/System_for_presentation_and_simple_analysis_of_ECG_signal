@@ -49,7 +49,10 @@ public class MainController implements Initializable{
 
     @FXML
     private void onChartBtnClick(ActionEvent event){
-        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
+//        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
+//        po zmianie widoku trace jakby kontakt z ecgLineChartem?
+        includedViewController.generateChart();
+//        przetestowac jak sie argumenty zmieniaja
     }
 
     @FXML

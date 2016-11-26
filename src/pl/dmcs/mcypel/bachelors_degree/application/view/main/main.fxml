@@ -33,7 +33,7 @@
          <children>
               <VBox alignment="CENTER">
                   <Button fx:id="loadBtn" onAction="#onLoadBtnClick" text="Load" />
-                  <Button fx:id="chartBtn" text="Graph"/>
+                  <Button fx:id="chartBtn" onAction="#onChartBtnClick" text="Graph"/>
                   <Button fx:id="dataBtn" onAction="#onDataBtnClick" text="Data" />
                   <Button fx:id="parametersBtn" onAction="#onParametersBtnClick" text="Parameters" />
                   <Button fx:id="saveBtn" text="Save" />

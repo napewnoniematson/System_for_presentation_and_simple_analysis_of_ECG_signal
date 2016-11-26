@@ -19,11 +19,11 @@ public class ChartPresentationController implements Initializable {
 
 //    private int counter = 0;
     @FXML
-    private LineChart lineChart;
+    private LineChart ecgLineChart;
 
 
     public void generateChart(){
-
+        chartManager.generateChart(ecgLineChart);
     }
 
 
