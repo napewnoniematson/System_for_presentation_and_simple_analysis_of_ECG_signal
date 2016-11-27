@@ -29,7 +29,7 @@ public class ChartPresentationController implements Initializable {
         ((NumberAxis) ecgLineChart.getXAxis()).setLowerBound(100000.0);
         ((NumberAxis) ecgLineChart.getXAxis()).setUpperBound(100500.0);
         ((NumberAxis) ecgLineChart.getYAxis()).setLowerBound(100);
-        ((NumberAxis) ecgLineChart.getYAxis()).setUpperBound(200);
+        ((NumberAxis) ecgLineChart.getYAxis()).setUpperBound(185);
     }
 
     public LineChart getSignal(){
