@@ -21,35 +21,36 @@ import java.util.Collections;
 public class ChartManager {
 
 
-    private ECGSignal ecgSignal; // chyba ze nie musze tych pol posiadac
+//    private ECGSignal ecgSignal; // chyba ze nie musze tych pol posiadac
 //    private LineChart lineChart;
+
+    /*public ChartManager(LineChart lineChart, ECGSignal ecgSignal){
+        this.lineChart = lineChart;
+        this.ecgSignal = ecgSignal;
+    }*/
 
     public ChartManager(){}
 
-    public ChartManager(LineChart lineChart, ECGSignal ecgSignal){
-//        this.lineChart = lineChart;
-        this.ecgSignal = ecgSignal;
-    }
-
-    public void generateChart(LineChart lineChart){
-        ObservableList<XYChart.Series> chartData;
+    public void generateChart(LineChart lineChart, ECGSignal ecgSignal){
+        /*ObservableList<XYChart.Series> chartData;
         XYChart.Series<Integer, Integer> series = new XYChart.Series<>();
         for (int i = 0; i < 10; ++i) {
             series.getData().add(new XYChart.Data(i, i));
         }
         chartData = FXCollections.observableArrayList(Collections.singleton(series));
-        lineChart.setData(chartData);
-//        lineChart.getData().add(prepareChartData());
-        System.out.println("Wykreślony Chart");
+        lineChart.setData(chartData);*/
+        lineChart.getData().add(prepareChartData(ecgSignal));
+//        System.out.println("Wykreślony Chart");
     }
 
 
-    public XYChart.Series prepareChartData(){
+    public XYChart.Series prepareChartData(ECGSignal ecgSignal){
+        // TODO: 27.11.2016 dodaja sie kolejne serie zamiast nadpisywac
         // TODO: 23.11.2016 sparametryzowac metode, zrobic bardziej uniwersalna, lowerbound,upperbound
         XYChart.Series chartData = new XYChart.Series();
-        chartData.setName("ChartData");
-        for(int i = 0; i < 10; ++i){
-            chartData.getData().add(new XYChart.Data(i, /*ecgSignal.getChannel(0)[i]*/ i));
+        chartData.setName("Channel 1");
+        for(int i = 100000; i < 100500; ++i){
+            chartData.getData().add(new XYChart.Data(i, ecgSignal.getChannel(0)[i]));
         }
         return chartData;
     }

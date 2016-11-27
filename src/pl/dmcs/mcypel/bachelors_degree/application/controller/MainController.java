@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartManager;
@@ -35,9 +36,11 @@ public class MainController implements Initializable{
 //    @FXML
 //    private LineChart<Number, Number> ecgLineChart;
 
+    private ECGSignal ecgSignal;
+
     @FXML
     private void onLoadBtnClick(ActionEvent event){
-//        ECGSignal ecgSignal = loadManager.load(); // returns ECGSignal
+        ecgSignal = loadManager.load(); // returns ECGSignal
 
 //        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
 //        lineChart.getData().add(new ChartManager(lineChart, ecgSignal).prepareChartData());
@@ -51,13 +54,15 @@ public class MainController implements Initializable{
     private void onChartBtnClick(ActionEvent event){
 //        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
 //        po zmianie widoku trace jakby kontakt z ecgLineChartem?
-        includedViewController.generateChart();
+        includedViewController.generateChart(ecgSignal);
+        System.out.println(includedViewController.getSignal().getData());
 //        przetestowac jak sie argumenty zmieniaja
     }
 
     @FXML
     private void onDataBtnClick(ActionEvent event){
         viewManager.changeIncludedView(includedView, PATIENT_DATA_FXML_PATH);
+        System.out.println(includedViewController.getSignal().getData());
     }
 
     @FXML

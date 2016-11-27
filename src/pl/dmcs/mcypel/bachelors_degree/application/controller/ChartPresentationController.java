@@ -3,6 +3,9 @@ package pl.dmcs.mcypel.bachelors_degree.application.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.shape.Line;
+import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartManager;
 
 import java.net.URL;
@@ -17,15 +20,21 @@ public class ChartPresentationController implements Initializable {
 
     // TODO: 24.11.2016 generowanie wykresu w nowym watku
 
-//    private int counter = 0;
     @FXML
     private LineChart ecgLineChart;
 
 
-    public void generateChart(){
-        chartManager.generateChart(ecgLineChart);
+    public void generateChart(ECGSignal ecgSignal){
+        chartManager.generateChart(ecgLineChart, ecgSignal);
+        ((NumberAxis) ecgLineChart.getXAxis()).setLowerBound(100000.0);
+        ((NumberAxis) ecgLineChart.getXAxis()).setUpperBound(100500.0);
+        ((NumberAxis) ecgLineChart.getYAxis()).setLowerBound(100);
+        ((NumberAxis) ecgLineChart.getYAxis()).setUpperBound(200);
     }
 
+    public LineChart getSignal(){
+        return ecgLineChart;
+    }
 
 
 
