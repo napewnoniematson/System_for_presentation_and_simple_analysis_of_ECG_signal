@@ -18,7 +18,7 @@ public class AppStart extends Application {
                 Locale.ENGLISH));*/
 
         Parent root = FXMLLoader.load(getClass().getResource("application/view/main/welcome.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("System for presentation and simple analysis of ECG signal");
         primaryStage.setScene(new Scene(root, 500, 150));
         primaryStage.show();
 

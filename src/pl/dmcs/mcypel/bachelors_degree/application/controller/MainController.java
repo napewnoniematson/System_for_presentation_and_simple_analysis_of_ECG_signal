@@ -2,17 +2,12 @@ package pl.dmcs.mcypel.bachelors_degree.application.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
-import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.LoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -43,7 +38,7 @@ public class MainController implements Initializable{
         ecgSignal = loadManager.load(); // returns ECGSignal
 
 //        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
-//        lineChart.getData().add(new ChartManager(lineChart, ecgSignal).prepareChartData());
+//        lineChart.getData().add(new ChartDataManager(lineChart, ecgSignal).prepareChartData());
         if (includedViewController == null)
             System.out.println("jest null");
         else

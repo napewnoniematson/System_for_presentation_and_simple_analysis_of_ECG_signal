@@ -4,9 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.shape.Line;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
-import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartDataManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +15,7 @@ import java.util.ResourceBundle;
  */
 public class ChartPresentationController implements Initializable {
 
-    private ChartManager chartManager;
+    private ChartDataManager chartDataManager;
 
     // TODO: 24.11.2016 generowanie wykresu w nowym watku
 
@@ -25,7 +24,7 @@ public class ChartPresentationController implements Initializable {
 
 
     public void generateChart(ECGSignal ecgSignal){
-        chartManager.generateChart(ecgLineChart, ecgSignal);
+        chartDataManager.generateChart(ecgLineChart, ecgSignal);
         ((NumberAxis) ecgLineChart.getXAxis()).setLowerBound(100000.0);
         ((NumberAxis) ecgLineChart.getXAxis()).setUpperBound(100500.0);
         ((NumberAxis) ecgLineChart.getYAxis()).setLowerBound(100);
@@ -40,7 +39,7 @@ public class ChartPresentationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        chartManager = new ChartManager();
+        chartDataManager = new ChartDataManager();
     }
 }
 

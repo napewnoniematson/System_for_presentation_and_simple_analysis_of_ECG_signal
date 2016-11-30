@@ -18,30 +18,29 @@ import java.util.Collections;
 /**
  * Created by Matson on 20.11.2016.
  */
-public class ChartManager {
-
+public class ChartDataManager {
+// TODO: 30.11.2016 buffory danych przed i po
 
 //    private ECGSignal ecgSignal; // chyba ze nie musze tych pol posiadac
 //    private LineChart lineChart;
 
-    /*public ChartManager(LineChart lineChart, ECGSignal ecgSignal){
+    /*public ChartDataManager(LineChart lineChart, ECGSignal ecgSignal){
         this.lineChart = lineChart;
         this.ecgSignal = ecgSignal;
     }*/
 
-    public ChartManager(){}
+    public ChartDataManager(){}
 
-    public void generateChart(LineChart lineChart, ECGSignal ecgSignal){
-        /*ObservableList<XYChart.Series> chartData;
+    /*public void generateChart(LineChart lineChart, ECGSignal ecgSignal){
+        ObservableList<XYChart.Series> chartData;
         XYChart.Series<Integer, Integer> series = new XYChart.Series<>();
         for (int i = 0; i < 10; ++i) {
             series.getData().add(new XYChart.Data(i, i));
         }
         chartData = FXCollections.observableArrayList(Collections.singleton(series));
-        lineChart.setData(chartData);*/
-        lineChart.getData().add(prepareChartData(ecgSignal));
+        lineChart.setData(chartData);
 //        System.out.println("Wykreślony Chart");
-    }
+    }*/
 
 
     public XYChart.Series prepareChartData(ECGSignal ecgSignal){
@@ -54,6 +53,8 @@ public class ChartManager {
         }
         return chartData;
     }
+
+
 
     //zooming method
 
