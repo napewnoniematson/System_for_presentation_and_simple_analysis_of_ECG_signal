@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
@@ -9,43 +8,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="220.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/null"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
+<BorderPane prefHeight="220.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
 
 
    <top>
       <Label text="System for presentation and simple analysis of ECG signal" BorderPane.alignment="CENTER">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
          <font>
-            <Font name="Chiller" size="21.0" />
-         </font></Label>
+            <Font name="French Script MT" size="21.0" />
+         </font>
+      </Label>
    </top>
    <center>
       <fx:include fx:id="includedView" source="../included/chart_presentation.fxml" />
    </center>
-   <left>
+   <right>
       <HBox BorderPane.alignment="CENTER">
          <children>
+             <Separator orientation="VERTICAL" />
               <VBox alignment="CENTER">
-                  <Button fx:id="loadBtn" onAction="#onLoadBtnClick" text="Load" />
-                  <Button fx:id="chartBtn" onAction="#onChartBtnClick" text="Graph"/>
-                  <Button fx:id="dataBtn" onAction="#onDataBtnClick" text="Data" />
-                  <Button fx:id="parametersBtn" onAction="#onParametersBtnClick" text="Parameters" />
-                  <Button fx:id="saveBtn" text="Save" />
-                  <Button fx:id="printBtn" text="Print" />
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+                  <fx:include source="../included/patient_data.fxml" />
+                  <fx:include source="../included/parameters.fxml" />
               </VBox>
-            <Separator orientation="VERTICAL" />
          </children>
       </HBox>
-   </left>
+   </right>
 
 
 

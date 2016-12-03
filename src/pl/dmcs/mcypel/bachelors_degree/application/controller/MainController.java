@@ -1,9 +1,13 @@
 package pl.dmcs.mcypel.bachelors_degree.application.controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Line;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.LoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
@@ -47,11 +51,23 @@ public class MainController implements Initializable{
 
     @FXML
     private void onChartBtnClick(ActionEvent event){
-//        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
+        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
 //        po zmianie widoku trace jakby kontakt z ecgLineChartem?
         includedViewController.generateChart(ecgSignal);
+        for(int i = 0; i < 100 ; i++)
+            temporaryChart().get(i);
         System.out.println(includedViewController.getSignal().getData());
 //        przetestowac jak sie argumenty zmieniaja
+    }
+
+    private ObservableList<XYChart.Data> temporaryChart(){
+        BorderPane borderPane = (BorderPane)includedView.getChildren().get(0);
+        System.out.println("BorderPane: " + borderPane.toString());
+        LineChart lineChart = (LineChart) borderPane.getCenter();
+        System.out.println("LineChart: " + lineChart.toString());
+        XYChart.Series series = (XYChart.Series) lineChart.getData().get(0);
+        System.out.println("Series " + series.toString());
+        return (ObservableList<XYChart.Data>) series.getData();
     }
 
     @FXML

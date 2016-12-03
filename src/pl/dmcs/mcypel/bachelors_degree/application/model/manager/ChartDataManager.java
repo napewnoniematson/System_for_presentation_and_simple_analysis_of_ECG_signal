@@ -21,17 +21,63 @@ import java.util.Collections;
 public class ChartDataManager {
 // TODO: 30.11.2016 buffory danych przed i po
 
-//    private ECGSignal ecgSignal; // chyba ze nie musze tych pol posiadac
-//    private LineChart lineChart;
+    private int lowerSample = 0;
+    private int upperSample = 0;
+    private int difference = 300; //jakies ify gdyby mialo wyjsc za zakres
+    private XYChart.Series previousSeries, currentSeries, nextSeries;
 
-    /*public ChartDataManager(LineChart lineChart, ECGSignal ecgSignal){
-        this.lineChart = lineChart;
-        this.ecgSignal = ecgSignal;
-    }*/
+    public ChartDataManager() {
+    }
 
-    public ChartDataManager(){}
+    // TODO: 30.11.2016 ify dla series
 
-    /*public void generateChart(LineChart lineChart, ECGSignal ecgSignal){
+    public XYChart.Series generateSeries(ECGSignal ecgSignal, int lowerSample, int upperSample){
+//        difference = upperSample - lowerSample;
+        System.out.println(this.getClass().toString());
+
+        return prepareChartSeries(ecgSignal,lowerSample,upperSample,0);
+
+    }
+
+    private XYChart.Series preparePreviousSeries(int lowerSample, int upperSample, ECGSignal ecgSignal){
+
+
+        return null;
+    }
+
+    private XYChart.Series prepareCurrentSeries(){
+
+
+        return null;
+    }
+
+    private XYChart.Series prepareNextSeries(){
+        lowerSample = upperSample;
+        upperSample += difference;
+//        prepareChartSeries()
+        return null;
+    }
+
+
+
+
+    //wstepnie channel = 0
+    private XYChart.Series prepareChartSeries(ECGSignal ecgSignal, int lowerSample, int upperSample, int channel) {
+        // TODO: 27.11.2016 dodaja sie kolejne serie zamiast nadpisywac, upper/lowerbound
+        XYChart.Series chartData = new XYChart.Series();
+        chartData.setName("Channel " + channel);
+        for (int i = lowerSample; i < upperSample; ++i) {
+            chartData.getData().add(new XYChart.Data(i, ecgSignal.getChannel(channel)[i]));
+        }
+        return chartData;
+    }
+
+
+    //zooming method
+
+
+
+        /*public void generateChart(LineChart lineChart, ECGSignal ecgSignal){
         ObservableList<XYChart.Series> chartData;
         XYChart.Series<Integer, Integer> series = new XYChart.Series<>();
         for (int i = 0; i < 10; ++i) {
@@ -41,22 +87,4 @@ public class ChartDataManager {
         lineChart.setData(chartData);
 //        System.out.println("Wykreślony Chart");
     }*/
-
-
-    public XYChart.Series prepareChartData(ECGSignal ecgSignal){
-        // TODO: 27.11.2016 dodaja sie kolejne serie zamiast nadpisywac
-        // TODO: 23.11.2016 sparametryzowac metode, zrobic bardziej uniwersalna, lowerbound,upperbound
-        XYChart.Series chartData = new XYChart.Series();
-        chartData.setName("Channel 1");
-        for(int i = 100000; i < 100500; ++i){
-            chartData.getData().add(new XYChart.Data(i, ecgSignal.getChannel(0)[i]));
-        }
-        return chartData;
-    }
-
-
-
-    //zooming method
-
-
 }

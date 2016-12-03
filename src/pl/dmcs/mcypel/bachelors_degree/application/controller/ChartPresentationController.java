@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ChartDataManager;
 
@@ -24,9 +25,17 @@ public class ChartPresentationController implements Initializable {
 
 
     public void generateChart(ECGSignal ecgSignal){
-        chartDataManager.generateChart(ecgLineChart, ecgSignal);
+        ecgLineChart.getData().add(chartDataManager.generateSeries(ecgSignal, 100000, 100300));
+
+        /*for (int i =0 ; i <100; i++){
+            System.out.println("From ecgsingal: " + ecgSignal.getChannel(0)[100000 + i]);
+            System.out.println("From LineChart: " + ((XYChart.Series)ecgLineChart.getData().get(0)).getData().get(i));
+
+        }*/
+
+        System.out.println(this.getClass().toString());
         ((NumberAxis) ecgLineChart.getXAxis()).setLowerBound(100000.0);
-        ((NumberAxis) ecgLineChart.getXAxis()).setUpperBound(100500.0);
+        ((NumberAxis) ecgLineChart.getXAxis()).setUpperBound(100300.0);
         ((NumberAxis) ecgLineChart.getYAxis()).setLowerBound(100);
         ((NumberAxis) ecgLineChart.getYAxis()).setUpperBound(185);
     }
