@@ -1,4 +1,4 @@
-package pl.dmcs.mcypel.bachelors_degree.application.model;
+package pl.dmcs.mcypel.bachelors_degree.application.model.signal;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

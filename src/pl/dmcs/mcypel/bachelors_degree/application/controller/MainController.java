@@ -7,8 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.Line;
-import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
+import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.LoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
 

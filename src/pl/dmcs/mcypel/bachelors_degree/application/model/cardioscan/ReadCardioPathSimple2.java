@@ -1,6 +1,6 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan;
 
-import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
+import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
 import java.io.BufferedInputStream;
 import java.io.File;

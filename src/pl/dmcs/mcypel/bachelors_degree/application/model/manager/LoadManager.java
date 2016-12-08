@@ -1,7 +1,7 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.manager;
 
 import javafx.stage.DirectoryChooser;
-import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
+import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathNumberOfChannels;
 import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathSimple2;
 import pl.dmcs.mcypel.bachelors_degree.application.model.reynolds.ReadReynoldsNumberOfChannels;

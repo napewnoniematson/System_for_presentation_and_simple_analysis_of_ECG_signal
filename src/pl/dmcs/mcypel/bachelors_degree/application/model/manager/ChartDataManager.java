@@ -1,19 +1,7 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.manager;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableIntegerArray;
-import javafx.collections.ObservableList;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.image.WritableImage;
-import javafx.scene.shape.Line;
-import pl.dmcs.mcypel.bachelors_degree.application.model.ECGSignal;
-
-import java.util.ArrayList;
-import java.util.Collections;
+import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
 /**
  * Created by Matson on 20.11.2016.
@@ -21,6 +9,7 @@ import java.util.Collections;
 public class ChartDataManager {
 // TODO: 30.11.2016 buffory danych przed i po
 
+    private ECGSignal ecgSignal;
     private int lowerSample = 0;
     private int upperSample = 0;
     private int difference = 300; //jakies ify gdyby mialo wyjsc za zakres
@@ -31,49 +20,76 @@ public class ChartDataManager {
 
     // TODO: 30.11.2016 ify dla series
 
-    public XYChart.Series generateSeries(ECGSignal ecgSignal, int lowerSample, int upperSample){
-//        difference = upperSample - lowerSample;
-        System.out.println(this.getClass().toString());
+    /***************************generatedata***************************/
 
-        return prepareChartSeries(ecgSignal,lowerSample,upperSample,0);
-
+    public XYChart.Series generateSeries(){
+        previousSeries = preparePreviousSeries();
+        currentSeries = prepareCurrentSeries();
+        nextSeries = prepareNextSeries();
+        return currentSeries;
     }
 
-    private XYChart.Series preparePreviousSeries(int lowerSample, int upperSample, ECGSignal ecgSignal){
+    public XYChart.Series generateSeries(int lowerSample, int upperSample){
+        setSamples(lowerSample, upperSample);
+        return generateSeries();
+    }
+
+    private void setSamples(int lowerSample, int upperSample){
+        this.lowerSample = lowerSample;
+        this.upperSample = upperSample;
+        this.difference = upperSample - lowerSample;
+    }
 
 
-        return null;
+    private XYChart.Series preparePreviousSeries(){
+        int tempLowerSample = lowerSample - difference;
+        int tempUpperSample = lowerSample;
+        return prepareChartSeries(tempLowerSample, tempUpperSample, 0);
     }
 
     private XYChart.Series prepareCurrentSeries(){
-
-
-        return null;
+        return prepareChartSeries(lowerSample, upperSample, 0);
     }
 
     private XYChart.Series prepareNextSeries(){
-        lowerSample = upperSample;
-        upperSample += difference;
-//        prepareChartSeries()
-        return null;
+        int tempLowerSample = upperSample;
+        int tempUpperSample = upperSample + difference;
+        return prepareChartSeries(tempLowerSample, tempUpperSample, 0);
     }
 
-
-
-
-    //wstepnie channel = 0
-    private XYChart.Series prepareChartSeries(ECGSignal ecgSignal, int lowerSample, int upperSample, int channel) {
+    private XYChart.Series prepareChartSeries(int lowerSample, int upperSample, int channel) {
         // TODO: 27.11.2016 dodaja sie kolejne serie zamiast nadpisywac, upper/lowerbound
-        XYChart.Series chartData = new XYChart.Series();
-        chartData.setName("Channel " + channel);
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Channel " + channel);
         for (int i = lowerSample; i < upperSample; ++i) {
-            chartData.getData().add(new XYChart.Data(i, ecgSignal.getChannel(channel)[i]));
+            series.getData().add(new XYChart.Data(i, ecgSignal.getChannel(channel)[i]));
         }
-        return chartData;
+        return series;
     }
+    /***************************left button***************************/
+    public XYChart.Series previous(){
+        int tempLowerSample = lowerSample - difference;
+        int tempUpperSample = lowerSample;
+        setSamples(tempLowerSample, tempUpperSample);
+        nextSeries = currentSeries;
+        currentSeries = previousSeries;
+        previousSeries = preparePreviousSeries();
+        return currentSeries;
+    }
+    /***************************right button***************************/
+    public XYChart.Series next() {
+        int tempLowerSample = upperSample;
+        int tempUpperSample = upperSample + difference;
+        setSamples(tempLowerSample, tempUpperSample);
+        previousSeries = currentSeries;
+        currentSeries = nextSeries;
+        nextSeries = prepareNextSeries();
+        return currentSeries;
+//        setsamples + prepare ?
 
 
-    //zooming method
+    }
+    /***************************zooming method***************************/
 
 
 
