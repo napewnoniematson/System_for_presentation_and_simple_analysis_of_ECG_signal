@@ -5,10 +5,10 @@ import javafx.scene.chart.XYChart;
 /**
  * Created by Matson on 08.12.2016.
  */
-public interface DataGenerateManager {
+public interface ChartSeriesManager {
 
     XYChart.Series generate();
 
-    XYChart.Series generate(int lowerSample, int upperSample);
+    XYChart.Series generate(int lowerBound, int upperBound);
 
 }
