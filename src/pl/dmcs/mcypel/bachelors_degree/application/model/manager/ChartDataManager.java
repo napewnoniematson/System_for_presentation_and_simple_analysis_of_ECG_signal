@@ -58,13 +58,14 @@ public class ChartDataManager {
     }
 
     private XYChart.Series prepareChartSeries(int lowerSample, int upperSample, int channel) {
-        // TODO: 27.11.2016 dodaja sie kolejne serie zamiast nadpisywac, upper/lowerbound
+        return null;
+        /*        // TODO: 27.11.2016 dodaja sie kolejne serie zamiast nadpisywac, upper/lowerbound
         XYChart.Series series = new XYChart.Series();
         series.setName("Channel " + channel);
         for (int i = lowerSample; i < upperSample; ++i) {
             series.getData().add(new XYChart.Data(i, ecgSignal.getChannel(channel)[i]));
         }
-        return series;
+        return series;*/
     }
     /***************************left button***************************/
     public XYChart.Series previous(){
