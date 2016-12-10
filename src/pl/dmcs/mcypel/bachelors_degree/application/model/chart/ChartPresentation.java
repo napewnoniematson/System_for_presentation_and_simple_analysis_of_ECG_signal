@@ -16,20 +16,21 @@ public class ChartPresentation implements ChartPresentManager {
     private ChartMoveManager chartMoveWorker;
     private ZoomManager zoomWorker;
     private XYChart.Series currentSeries;
-    private int lowerBound = 0;
-    private int upperBound = 300;
 
 
-    public ChartPresentation(ECGSignal ecgSignal){
+    public ChartPresentation(){}
+
+
+
+
+    public ChartPresentation(ECGSignal ecgSignal, int lowerBound, int upperBound){
         dataGenerator = new ChartSeriesProvider(ecgSignal);
-        createCurrentSeries();
-        chartMoveWorker = new ChartMoveWorker();
-        zoomWorker = new ZoomWorker();
+        currentSeries = dataGenerator.generate();
+        chartMoveWorker = new ChartMoveWorker(ecgSignal, lowerBound, upperBound, currentSeries);
+//        zoomWorker = new ZoomWorker();
     }
 
-    private void createCurrentSeries(){
-        currentSeries = dataGenerator.generate();
-    }
+
 
 
 }

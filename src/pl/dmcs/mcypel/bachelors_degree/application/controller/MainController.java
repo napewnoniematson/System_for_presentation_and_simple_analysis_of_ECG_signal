@@ -37,9 +37,9 @@ public class MainController implements Initializable{
     private ECGSignal ecgSignal;
 
     @FXML
-    private void onLoadBtnClick(ActionEvent event){
-        ecgSignal = loadManager.load(); // returns ECGSignal
+    private void loadECGSignalFromFile(ActionEvent event) {
 
+        ecgSignal = loadManager.load(); // returns ECGSignal
 //        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
 //        lineChart.getData().add(new ChartDataManager(lineChart, ecgSignal).prepareChartData());
         if (includedViewController == null)
@@ -48,16 +48,7 @@ public class MainController implements Initializable{
             System.out.println("nie jest null");
     }
 
-    @FXML
-    private void onChartBtnClick(ActionEvent event){
-        viewManager.changeIncludedView(includedView, CHART_PRESENTATION_FXML_PATH);
-//        po zmianie widoku trace jakby kontakt z ecgLineChartem?
-        includedViewController.generateChart(ecgSignal);
-        for(int i = 0; i < 100 ; i++)
-            temporaryChart().get(i);
-        System.out.println(includedViewController.getSignal().getData());
-//        przetestowac jak sie argumenty zmieniaja
-    }
+
 
     private ObservableList<XYChart.Data> temporaryChart(){
         BorderPane borderPane = (BorderPane)includedView.getChildren().get(0);
@@ -68,19 +59,6 @@ public class MainController implements Initializable{
         System.out.println("Series " + series.toString());
         return (ObservableList<XYChart.Data>) series.getData();
     }
-
-    @FXML
-    private void onDataBtnClick(ActionEvent event){
-        viewManager.changeIncludedView(includedView, PATIENT_DATA_FXML_PATH);
-        System.out.println(includedViewController.getSignal().getData());
-    }
-
-    @FXML
-    private void onParametersBtnClick(ActionEvent event){
-        viewManager.changeIncludedView(includedView, PARAMETERS_FXML_PATH);
-    }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
