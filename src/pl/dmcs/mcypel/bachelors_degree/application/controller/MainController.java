@@ -7,8 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
+import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
+import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.SignalLoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
-import pl.dmcs.mcypel.bachelors_degree.application.model.manager.LoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
 
 import java.net.URL;
@@ -28,7 +29,7 @@ public class MainController implements Initializable{
     @FXML
     private BorderPane includedView;
     private ViewManager viewManager;
-    private LoadManager loadManager;
+    private SignalLoadManager loadManager;
     @FXML
     private ChartPresentationController includedViewController;
 //    @FXML
@@ -39,7 +40,7 @@ public class MainController implements Initializable{
     @FXML
     private void loadECGSignalFromFile(ActionEvent event) {
 
-        ecgSignal = loadManager.load(); // returns ECGSignal
+        ecgSignal = loadManager.loadSignal(); // returns ECGSignal
 //        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
 //        lineChart.getData().add(new ChartDataManager(lineChart, ecgSignal).prepareChartData());
         if (includedViewController == null)
@@ -63,6 +64,6 @@ public class MainController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewManager = new ViewManager();
-        loadManager = new LoadManager();
+        loadManager = new SignalLoader();
     }
 }
