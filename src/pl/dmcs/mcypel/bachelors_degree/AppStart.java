@@ -17,9 +17,11 @@ public class AppStart extends Application {
         fxmlLoader.setResources(ResourceBundle.getBundle("pl/dmcs/mcypel/bachelors_degree/resources/lang_en.properties",
                 Locale.ENGLISH));*/
 
-        Parent root = FXMLLoader.load(getClass().getResource("application/view/main/welcome.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("application/view/main/main.fxml"));
         primaryStage.setTitle("System for presentation and simple analysis of ECG signal");
-        primaryStage.setScene(new Scene(root, 500, 150));
+//        primaryStage.setScene(new Scene(root, 500, 150));
+        primaryStage.setScene(new Scene(root, 1000, 700));
+
         primaryStage.show();
 
        /* DirectoryChooser directoryChooser = new DirectoryChooser();

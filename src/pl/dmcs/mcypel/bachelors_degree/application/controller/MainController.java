@@ -38,19 +38,9 @@ public class MainController implements Initializable{
     private void loadECGSignalFromFile(ActionEvent event) {
         ecgSignal = loadManager.loadSignal(); // returns ECGSignal
         includedViewController.runManager(ecgSignal);
+
     }
 
-
-
-    private ObservableList<XYChart.Data> temporaryChart(){
-        BorderPane borderPane = (BorderPane)includedView.getChildren().get(0);
-        System.out.println("BorderPane: " + borderPane.toString());
-        LineChart lineChart = (LineChart) borderPane.getCenter();
-        System.out.println("LineChart: " + lineChart.toString());
-        XYChart.Series series = (XYChart.Series) lineChart.getData().get(0);
-        System.out.println("Series " + series.toString());
-        return (ObservableList<XYChart.Data>) series.getData();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -12,7 +12,7 @@
 
 
     <center>
-      <LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" legendSide="RIGHT" BorderPane.alignment="CENTER">
+      <LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" legendSide="BOTTOM" BorderPane.alignment="CENTER">
         <xAxis>
           <NumberAxis autoRanging="false" side="BOTTOM" fx:id="xAxis" />
         </xAxis>
