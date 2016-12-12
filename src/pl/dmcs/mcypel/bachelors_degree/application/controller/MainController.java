@@ -9,6 +9,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.SignalLoadManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.save.ImageRecorder;
+import pl.dmcs.mcypel.bachelors_degree.application.model.save.manager.ImageSaveManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
 
@@ -30,15 +32,26 @@ public class MainController implements Initializable{
     private BorderPane includedView;
     private ViewManager viewManager;
     private SignalLoadManager loadManager;
+    private ImageSaveManager imageRecorder;
     @FXML
     private ChartPresentationController includedViewController;
     private ECGSignal ecgSignal;
 
     @FXML
-    private void loadECGSignalFromFile(ActionEvent event) {
+    private void load(ActionEvent event) {
         ecgSignal = loadManager.loadSignal(); // returns ECGSignal
         includedViewController.runManager(ecgSignal);
+    }
 
+    @FXML
+    private void save() {
+        System.out.println("save");
+        imageRecorder.save(null, includedView.getCenter());
+    }
+
+    @FXML
+    private void print() {
+        System.out.println("print");
     }
 
 
@@ -46,5 +59,6 @@ public class MainController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         viewManager = new ViewManager();
         loadManager = new SignalLoader();
+        imageRecorder = new ImageRecorder();
     }
 }

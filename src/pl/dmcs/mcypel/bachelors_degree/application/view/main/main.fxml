@@ -27,9 +27,9 @@
               <VBox alignment="TOP_CENTER">
                <HBox alignment="CENTER_LEFT" spacing="4.0">
                   <children>
-                     <Button fx:id="loadButton" text="Load" onAction="#loadECGSignalFromFile"/>
-                     <Button fx:id="saveButton" text="Save" />
-                     <Button fx:id="printButton" text="Print" />
+                     <Button fx:id="loadButton" text="Load" onAction="#load"/>
+                     <Button fx:id="saveButton" text="Save" onAction="#save"/>
+                     <Button fx:id="printButton" text="Print" onAction="#print"/>
                   </children>
                </HBox>
 
