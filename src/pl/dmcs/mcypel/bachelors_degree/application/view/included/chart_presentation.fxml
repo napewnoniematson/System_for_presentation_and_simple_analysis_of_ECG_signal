@@ -34,7 +34,7 @@
             <TextField fx:id="lowerBoundTextField" alignment="CENTER" />
             <Label text="Upper value" textAlignment="CENTER" />
             <TextField fx:id="upperBoundTextField" alignment="CENTER" />
-            <Button fx:id="generateButton" text="Generate" textAlignment="CENTER" />
+            <Button fx:id="generateButton" text="Generate" textAlignment="CENTER" onAction="#generate"/>
          </children>
       </HBox>
    </top>

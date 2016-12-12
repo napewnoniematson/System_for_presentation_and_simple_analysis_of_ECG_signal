@@ -17,7 +17,7 @@ public class ChartMoveWorker implements ChartMoveManager {
     private XYChart.Series currentSeries = null;
     private XYChart.Series nextSeries = null;
 
-
+    // TODO: 12.12.2016 moze trzeba tu umiescic chartseriesprovider bo jak sie zmieni generowanie to takze tu sie powinno zmienic
     public ChartMoveWorker(ECGSignal ecgSignal, int lowerBound, int upperBound, XYChart.Series currentSeries) {
         setBounds(lowerBound, upperBound);
         this.ecgSignal = ecgSignal;

@@ -32,21 +32,12 @@ public class MainController implements Initializable{
     private SignalLoadManager loadManager;
     @FXML
     private ChartPresentationController includedViewController;
-//    @FXML
-//    private LineChart<Number, Number> ecgLineChart;
-
     private ECGSignal ecgSignal;
 
     @FXML
     private void loadECGSignalFromFile(ActionEvent event) {
-
         ecgSignal = loadManager.loadSignal(); // returns ECGSignal
-//        LineChart lineChart = (LineChart)((BorderPane) includedView.getChildren().get(0)).getCenter();
-//        lineChart.getData().add(new ChartDataManager(lineChart, ecgSignal).prepareChartData());
-        if (includedViewController == null)
-            System.out.println("jest null");
-        else
-            System.out.println("nie jest null");
+        includedViewController.runManager(ecgSignal);
     }
 
 

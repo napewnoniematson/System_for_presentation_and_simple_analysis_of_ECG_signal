@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import pl.dmcs.mcypel.bachelors_degree.application.model.chart.ChartPresentation;
@@ -36,18 +37,37 @@ public class ChartPresentationController implements Initializable {
     @FXML
     private Button generateButton;
 
+    public void runManager(ECGSignal ecgSignal) {
+        chartPresenter = new ChartPresentation(ecgSignal, 100000, 101000);
+    }
+
+    public void generateOnLoad(){
+
+    }
+
     @FXML
     private void next() {
         System.out.println("nextbutton clicked");
+        chartPresenter.next();
     }
 
     @FXML
     private void previous() {
         System.out.println("previous clicked");
+        chartPresenter.previous();
     }
 
+    @FXML
+    private void generate() {
+        System.out.println("generate");
+        int lowerBound = getLowerBoundFromTextEdit();
+        int upperBound = getUpperBoundFromTextEdit();
+        XYChart.Series series = chartPresenter.generate(lowerBound, upperBound);;
+        ecgLineChart.getData().clear();
+        ecgLineChart.getData().add(series);
+    }
 
-
+    // TODO: 12.12.2016 zabezpieczenie przed literkami
     private int getLowerBoundFromTextEdit() {
         return Integer.parseInt(lowerBoundTextField.getText());
     }
@@ -64,12 +84,8 @@ public class ChartPresentationController implements Initializable {
         ((NumberAxis) ecgLineChart.getYAxis()).setUpperBound(185);*/
     }
 
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        chartPresenter = new ChartPresentation();
     }
 }
 

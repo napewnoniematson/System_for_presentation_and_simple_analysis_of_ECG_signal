@@ -13,6 +13,10 @@ public class FolderChooser implements FolderChooseManager {
     private DirectoryChooser directoryChooser;
     private File file;
 
+    public FolderChooser(){
+        directoryChooser = new DirectoryChooser();
+    }
+
     @Override
     public void chooseFolder() {
         file = directoryChooser.showDialog(null);
