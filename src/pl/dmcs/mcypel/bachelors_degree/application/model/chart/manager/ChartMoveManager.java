@@ -10,4 +10,7 @@ public interface ChartMoveManager {
     XYChart.Series previous();
 
     XYChart.Series next();
+
+    // TODO: 12.12.2016 moze tu byc setbounds?
+    void setBounds(int lowerBound, int upperBound);
 }

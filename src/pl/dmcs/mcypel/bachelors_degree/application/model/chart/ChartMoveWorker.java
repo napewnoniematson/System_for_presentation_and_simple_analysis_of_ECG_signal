@@ -26,14 +26,7 @@ public class ChartMoveWorker implements ChartMoveManager {
         nextSeries = generateNextSeries();
     }
 
-    public int getUpperBound() {
-        return upperBound;
-    }
-
-    public int getLowerBound() {
-        return lowerBound;
-    }
-
+    @Override
     public void setBounds(int lowerBound, int upperBound) {
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;

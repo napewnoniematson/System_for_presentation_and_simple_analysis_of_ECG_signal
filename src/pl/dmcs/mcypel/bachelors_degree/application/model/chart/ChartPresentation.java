@@ -36,13 +36,20 @@ public class ChartPresentation implements ChartPresentManager {
     }
 
     @Override
+    public void setBounds(int lowerBound, int upperBound) {
+        chartMoveWorker.setBounds(lowerBound, upperBound);
+    }
+
+    @Override
     public XYChart.Series generate(int lowerBound, int upperBound) {
         XYChart.Series series;
 
         if (lowerBound < upperBound){
             series = dataGenerator.generate(lowerBound, upperBound);
+            setBounds(lowerBound, upperBound);
         }else {
             series = dataGenerator.generate(upperBound, lowerBound);
+            setBounds(upperBound, lowerBound);
         }
 
         return series;

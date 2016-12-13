@@ -7,6 +7,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import pl.dmcs.mcypel.bachelors_degree.application.model.chart.ChartPresentation;
 import pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager.ChartPresentManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
@@ -61,6 +63,16 @@ public class ChartPresentationController implements Initializable {
         insertData(series);
     }
 
+    // TODO: 12.12.2016 onKeyPressed = "#next_test"
+//    @FXML
+//    private void next_test(KeyEvent keyEvent){
+//        if (keyEvent.getCode() == KeyCode.RIGHT){
+//            next();
+//            keyEvent.consume();
+//        }
+//    }
+
+
     @FXML
     private void previous() {
         System.out.println("previous clicked");
@@ -68,6 +80,7 @@ public class ChartPresentationController implements Initializable {
         insertData(series);
     }
 
+    // TODO: 12.12.2016 zostaja stare currentSeries, dlatego raz jak sie kliknie next to wczytuje stare
     @FXML
     private void generate() {
         System.out.println("generate");

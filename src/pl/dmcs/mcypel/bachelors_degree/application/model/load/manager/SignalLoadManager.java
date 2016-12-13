@@ -1,5 +1,6 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.load.manager;
 
+import pl.dmcs.mcypel.bachelors_degree.application.model.patient.PatientPersonalData;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
 /**
@@ -7,6 +8,8 @@ import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
  */
 public interface SignalLoadManager {
 
-    ECGSignal loadSignal();
+    ECGSignal loadSignal(FolderChooseManager folderChooseManager);
+
+    PatientPersonalData loadPatientData(FolderChooseManager folderChooseManager);
 
 }

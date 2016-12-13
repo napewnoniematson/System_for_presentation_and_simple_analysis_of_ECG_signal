@@ -7,7 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
+import pl.dmcs.mcypel.bachelors_degree.application.model.load.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
+import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.FolderChooseManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.SignalLoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.save.ImageRecorder;
 import pl.dmcs.mcypel.bachelors_degree.application.model.save.manager.ImageSaveManager;
@@ -33,14 +35,18 @@ public class MainController implements Initializable{
     private ViewManager viewManager;
     private SignalLoadManager loadManager;
     private ImageSaveManager imageRecorder;
+    private FolderChooseManager folderChooseManager;
     @FXML
     private ChartPresentationController includedViewController;
     private ECGSignal ecgSignal;
 
     @FXML
     private void load(ActionEvent event) {
-        ecgSignal = loadManager.loadSignal(); // returns ECGSignal
+        folderChooseManager.chooseFolder();
+        ecgSignal = loadManager.loadSignal(folderChooseManager); // returns ECGSignal
         includedViewController.runManager(ecgSignal);
+        System.out.println("Name: " + loadManager.loadPatientData(folderChooseManager).getName());
+        System.out.println("Surname: " + loadManager.loadPatientData(folderChooseManager).getSurname());
     }
 
     @FXML
@@ -59,6 +65,7 @@ public class MainController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         viewManager = new ViewManager();
         loadManager = new SignalLoader();
+        folderChooseManager = new FolderChooser();
         imageRecorder = new ImageRecorder();
     }
 }
