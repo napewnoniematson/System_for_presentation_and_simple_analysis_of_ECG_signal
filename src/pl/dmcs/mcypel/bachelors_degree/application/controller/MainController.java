@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
@@ -58,6 +59,32 @@ public class MainController implements Initializable{
     @FXML
     private void print() {
         System.out.println("print");
+
+        System.out.println(includedView.getCenter().managedProperty().get());
+        System.out.println(includedView.getLeft().managedProperty().get());
+        System.out.println(includedView.getRight().managedProperty().get());
+        System.out.println(includedView.managedProperty().get());
+
+        /*System.out.println("getCenter");
+        System.out.println(((Button) includedView.getLeft()).getWidth());
+        System.out.println(includedView.getLayoutX());
+        System.out.println(includedView.getCenter().getClass());
+        System.out.println(includedView.getCenter().translateXProperty().get());
+        System.out.println(includedView.getCenter().getTranslateX());
+        System.out.println(includedView.getCenter().getLayoutX());
+        System.out.println(includedView.getCenter().translateYProperty().get());
+        System.out.println(includedView.getCenter().getTranslateY());
+        System.out.println(includedView.getCenter().getLayoutY());
+        System.out.println("getRight");
+        System.out.println(includedView.getRight().getClass());
+        System.out.println(includedView.getRight().translateXProperty().get());
+        System.out.println(includedView.getRight().getTranslateX());
+        System.out.println(includedView.getRight().getLayoutX());
+        System.out.println(includedView.getRight().translateYProperty().get());
+        System.out.println(includedView.getRight().getTranslateY());
+        System.out.println(includedView.getRight().getLayoutY());*/
+
+
     }
 
 

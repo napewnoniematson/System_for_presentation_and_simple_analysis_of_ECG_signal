@@ -44,13 +44,13 @@ public class ChartPresentationController implements Initializable {
 
 
     public void runManager(ECGSignal ecgSignal) {
-        chartPresenter = new ChartPresentation(ecgSignal, 100000, 101000);
+        chartPresenter = new ChartPresentation(ecgSignal, 100000, 100100);
         generateOnLoad();
     }
 
     private void generateOnLoad(){
         System.out.println("generateOnLoad");
-        XYChart.Series series = chartPresenter.generate(100000, 101000);
+        XYChart.Series series = chartPresenter.generate(100000, 100100);
         insertData(series);
         yAxis.setLowerBound(100);
         yAxis.setUpperBound(200);
@@ -58,7 +58,6 @@ public class ChartPresentationController implements Initializable {
 
     @FXML
     private void next() {
-        System.out.println("nextbutton clicked");
         XYChart.Series series = chartPresenter.next();
         insertData(series);
     }
@@ -75,7 +74,6 @@ public class ChartPresentationController implements Initializable {
 
     @FXML
     private void previous() {
-        System.out.println("previous clicked");
         XYChart.Series series = chartPresenter.previous();
         insertData(series);
     }
