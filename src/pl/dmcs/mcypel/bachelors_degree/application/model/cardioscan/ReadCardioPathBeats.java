@@ -13,7 +13,7 @@ public class ReadCardioPathBeats {
 
 	/*public static FileBeats loadCardioPathBeats(String path)
 	{
-		//TODO poprawic liczbe kanalow
+		//poprawic liczbe kanalow
 		ECGSignal signal = ReadCardioPathSimple2.load(path + File.separator + "crecg.dat", ReadCardioPathNumberOfChannels.load(path)); 
 		signal.setDuration(ReadCardioPathDate.load(path));
 

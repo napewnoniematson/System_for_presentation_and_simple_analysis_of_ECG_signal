@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import org.gillius.jfxutils.chart.JFXChartUtil;
 import pl.dmcs.mcypel.bachelors_degree.application.model.chart.ChartPresentation;
 import pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager.ChartPresentManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
@@ -117,6 +118,7 @@ public class ChartPresentationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        JFXChartUtil.setupZooming(ecgLineChart);
     }
 }
 

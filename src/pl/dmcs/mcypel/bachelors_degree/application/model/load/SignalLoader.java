@@ -11,6 +11,8 @@ import pl.dmcs.mcypel.bachelors_degree.application.model.reynolds.ReadReynoldsPa
 import pl.dmcs.mcypel.bachelors_degree.application.model.reynolds.ReadReynoldsSimple2;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
+import java.io.IOException;
+
 /**
  * Created by Matson on 08.12.2016.
  */
@@ -25,26 +27,30 @@ public class SignalLoader implements SignalLoadManager {
     // TODO: 24.11.2016 wczytywanie danych w nowym watku -- tu tez?
 
     @Override
-    public ECGSignal loadSignal(FolderChooseManager folderChooseManager) {
+    public ECGSignal loadSignal(FolderChooseManager folderChooseManager) throws IOException {
         this.folderChooseManager = folderChooseManager;
         if (isCardioScan())
             loadCardioScan();
-        if(isReynolds())
+        if (isReynolds())
             loadReynolds();
-
-        // TODO: 20.11.2016 ogarnac co zrobic gdy sie nie powiedzie wczytanie i mialoby zwrocic nulla
-        return ecgSignal;
+        if (ecgSignal != null)
+            return ecgSignal;
+        else
+            throw new IOException("ecgSignal is null");
     }
 
     @Override
-    public PatientPersonalData loadPatientData(FolderChooseManager folderChooseManager) {
+    public PatientPersonalData loadPatientData(FolderChooseManager folderChooseManager) throws IOException {
         this.folderChooseManager = folderChooseManager;
         if (isCardioScan())
             loadCardioPatientData();
         if (isReynolds())
             loadReynoldsPatientData();
 
-        return patientData;
+        if (patientData != null)
+            return patientData;
+        else
+            throw new IOException("patientData is null");
     }
 
     private boolean isCardioScan(){

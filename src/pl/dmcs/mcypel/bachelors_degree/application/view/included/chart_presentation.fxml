@@ -8,18 +8,24 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ChartPresentationController">
 
 
     <center>
-      <LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" legendSide="BOTTOM" BorderPane.alignment="CENTER">
-        <xAxis>
-          <NumberAxis autoRanging="false" side="BOTTOM" fx:id="xAxis" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="yAxis" autoRanging="false" side="LEFT" />
-        </yAxis>
-      </LineChart>
+        <StackPane>
+            <LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" legendSide="BOTTOM" BorderPane.alignment="CENTER">
+                <xAxis>
+                    <NumberAxis autoRanging="false" side="BOTTOM" fx:id="xAxis" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="yAxis" autoRanging="false" side="LEFT" />
+                </yAxis>
+            </LineChart>
+            <Rectangle fx:id="selectedRectangle" fill="dodgerblue" height="0.0" managed="false" mouseTransparent="true" opacity="0.3" stroke="#002966" strokeType="INSIDE" strokeWidth="3.0" width="0.0" x="0.0" y="0.0" BorderPane.alignment="TOP_LEFT" />
+        </StackPane>
+
    </center>
    <left>
       <Button fx:id="previousButton" alignment="CENTER" onAction="#previous" text="Button" BorderPane.alignment="CENTER" />

@@ -4,6 +4,7 @@ import javafx.stage.DirectoryChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.FolderChooseManager;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Matson on 08.12.2016.
@@ -18,9 +19,10 @@ public class FolderChooser implements FolderChooseManager {
     }
 
     @Override
-    public void chooseFolder() {
+    public void chooseFolder() throws IOException {
         file = directoryChooser.showDialog(null);
-        // TODO: 20.11.2016 zabezpieczenia gdy ktos kliknie cancel bo zwraca nulla i sie pierdoli w getname,getfolderpath
+        if (file == null)
+            throw new IOException("File is null");
     }
 
     @Override
