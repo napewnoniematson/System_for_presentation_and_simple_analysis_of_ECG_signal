@@ -7,8 +7,6 @@ import javafx.scene.chart.XYChart;
  */
 public interface ChartSeriesManager {
 
-//    XYChart.Series generate();
-
     XYChart.Series generate(int lowerBound, int upperBound);
 
 }

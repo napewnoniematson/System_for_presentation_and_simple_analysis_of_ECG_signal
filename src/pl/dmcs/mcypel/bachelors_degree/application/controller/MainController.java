@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.FolderChooseManager;
@@ -48,19 +49,9 @@ public class MainController implements Initializable{
             System.out.println("Name: " + loadManager.loadPatientData(folderChooseManager).getName());
             System.out.println("Surname: " + loadManager.loadPatientData(folderChooseManager).getSurname());
         } catch (IOException e) {
-            showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
+            DialogPresenter.showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
         }
-
     }
-
-    private void showInfoDialog(String title, String header, String content){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
 
     @FXML
     private void save() {

@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.gillius.jfxutils.chart.JFXChartUtil;
+import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.model.chart.ChartPresentation;
 import pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager.ChartPresentManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
@@ -80,23 +81,33 @@ public class ChartPresentationController implements Initializable {
     }
 
     // TODO: 12.12.2016 zostaja stare currentSeries, dlatego raz jak sie kliknie next to wczytuje stare
+    // TODO: 15.12.2016 dac buttony do generowania na disable
     @FXML
     private void generate() {
-        System.out.println("generate");
-        int lowerBound = getLowerBoundFromTextEdit();
-        int upperBound = getUpperBoundFromTextEdit();
-        XYChart.Series series = chartPresenter.generate(lowerBound, upperBound);
-        insertData(series);
+        try{
+            int lowerBound = getLowerBoundFromTextEdit();
+            int upperBound = getUpperBoundFromTextEdit();
+            XYChart.Series series = chartPresenter.generate(lowerBound, upperBound);
+            insertData(series);
+        }catch (IllegalArgumentException e){
+            DialogPresenter.showInfoDialog("Generate info", "Wrong parameter", "Bound must be the natural number");
+        }
+
     }
 
+    private int getBoundFromTextEdit(TextField textField) {
+        int bound = Integer.parseInt(textField.getText());
+        if (bound < 0)
+            throw new IllegalArgumentException("Bound less than zero");
+        return bound;
+    }
 
-    // TODO: 12.12.2016 zabezpieczenie przed literkami
     private int getLowerBoundFromTextEdit() {
-        return Integer.parseInt(lowerBoundTextField.getText());
+        return getBoundFromTextEdit(lowerBoundTextField);
     }
 
     private int getUpperBoundFromTextEdit() {
-        return Integer.parseInt(upperBoundTextField.getText());
+        return getBoundFromTextEdit(upperBoundTextField);
     }
 
 
