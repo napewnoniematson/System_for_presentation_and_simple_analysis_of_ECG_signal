@@ -3,7 +3,7 @@ package pl.dmcs.mcypel.bachelors_degree.application.model.load;
 import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathNumberOfChannels;
 import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathPatientPersonalData;
 import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathSimple2;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.FolderChooseManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.SignalLoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.patient.PatientPersonalData;
 import pl.dmcs.mcypel.bachelors_degree.application.model.reynolds.ReadReynoldsNumberOfChannels;

@@ -1,0 +1,17 @@
+package pl.dmcs.mcypel.bachelors_degree.application.model.file.manager;
+
+import javafx.stage.Window;
+
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * Created by Matson on 19.12.2016.
+ */
+public interface ImageFileChooseManager {
+
+    void chooseSaveFile(Window window) throws IOException;
+
+    File getSaveFile();
+
+}

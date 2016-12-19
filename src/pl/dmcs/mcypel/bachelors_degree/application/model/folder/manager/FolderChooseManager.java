@@ -1,4 +1,6 @@
-package pl.dmcs.mcypel.bachelors_degree.application.model.load.manager;
+package pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager;
+
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -7,7 +9,7 @@ import java.io.IOException;
  */
 public interface FolderChooseManager {
 
-    void chooseFolder() throws IOException;
+    void chooseOpenFolder(Window window) throws IOException;
 
     String getFolderName();
 

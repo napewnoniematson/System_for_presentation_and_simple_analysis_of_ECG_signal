@@ -6,9 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
 import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.FolderChooser;
+import pl.dmcs.mcypel.bachelors_degree.application.model.folder.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.FolderChooseManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.SignalLoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.save.ImageRecorder;
 import pl.dmcs.mcypel.bachelors_degree.application.model.save.manager.ImageSaveManager;
@@ -43,7 +43,7 @@ public class MainController implements Initializable{
     @FXML
     private void load(ActionEvent event) {
         try {
-            folderChooseManager.chooseFolder();
+            folderChooseManager.chooseOpenFolder(null);
             loadManager = new SignalLoader(folderChooseManager);
             ecgSignal = loadManager.loadSignal(); // returns ECGSignal
             includedViewController.runManager(ecgSignal, 3);
@@ -57,7 +57,12 @@ public class MainController implements Initializable{
     @FXML
     private void save() {
         System.out.println("save");
-        imageRecorder.save(null, includedView.getCenter());
+        try {
+            imageRecorder.save(null, includedView.getCenter());
+        } catch (IOException e) {
+            DialogPresenter.showInfoDialog("Save file", null, "Type file name and click save");
+        }
+
     }
 
     @FXML

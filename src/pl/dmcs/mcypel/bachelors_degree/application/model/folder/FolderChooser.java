@@ -1,7 +1,8 @@
-package pl.dmcs.mcypel.bachelors_degree.application.model.load;
+package pl.dmcs.mcypel.bachelors_degree.application.model.folder;
 
 import javafx.stage.DirectoryChooser;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.FolderChooseManager;
+import javafx.stage.Window;
+import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +20,8 @@ public class FolderChooser implements FolderChooseManager {
     }
 
     @Override
-    public void chooseFolder() throws IOException {
-        file = directoryChooser.showDialog(null);
+    public void chooseOpenFolder(Window window) throws IOException {
+        file = directoryChooser.showDialog(window);
         if (file == null)
             throw new IOException("File is null");
     }
