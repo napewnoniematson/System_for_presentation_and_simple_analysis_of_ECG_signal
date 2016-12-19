@@ -2,6 +2,7 @@ package pl.dmcs.mcypel.bachelors_degree.application.model.folder;
 
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Window;
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
 
 import java.io.File;
@@ -24,6 +25,8 @@ public class FolderChooser implements FolderChooseManager {
         file = directoryChooser.showDialog(window);
         if (file == null)
             throw new IOException("File is null");
+        else
+            Logger.log(FolderChooser.class, "Creating file from SaveDialog");
     }
 
     @Override

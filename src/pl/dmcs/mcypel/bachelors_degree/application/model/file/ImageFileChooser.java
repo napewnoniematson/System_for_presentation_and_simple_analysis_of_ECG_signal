@@ -2,6 +2,7 @@ package pl.dmcs.mcypel.bachelors_degree.application.model.file;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 import pl.dmcs.mcypel.bachelors_degree.application.model.file.manager.ImageFileChooseManager;
 
 import java.io.File;
@@ -31,6 +32,8 @@ public class ImageFileChooser implements ImageFileChooseManager {
         file = fileChooser.showSaveDialog(window);
         if (file == null)
             throw new IOException("File is null");
+        else
+            Logger.log(ImageFileChooser.class, "Creating file from SaveDialog");
     }
 
     @Override

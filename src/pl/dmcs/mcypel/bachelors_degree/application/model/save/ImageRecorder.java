@@ -6,6 +6,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 import pl.dmcs.mcypel.bachelors_degree.application.model.file.ImageFileChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.file.manager.ImageFileChooseManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.save.manager.ImageSaveManager;
@@ -30,6 +31,7 @@ public class ImageRecorder implements ImageSaveManager
     public void save(Window window, Node node) throws IOException {
         takeSnapshot(node);
         imageWrite(window);
+        Logger.log(ImageRecorder.class, "Saving complete");
     }
 
     private void takeSnapshot(Node node){
