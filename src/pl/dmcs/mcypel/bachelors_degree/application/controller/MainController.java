@@ -3,10 +3,9 @@ package pl.dmcs.mcypel.bachelors_degree.application.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
 import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
-import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathNumberOfChannels;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.FolderChooseManager;
@@ -64,7 +63,10 @@ public class MainController implements Initializable{
     @FXML
     private void print() {
 
-        ReadCardioPathNumberOfChannels.load("C:\\Users\\Mateusz\\Desktop\\EKG_dane_do_pracy_inz\\CardioScan\\Save300");
+        ChoiceConfiguration configuration = DialogPresenter.showChoiceDialog(DialogPresenter.ConfigurationTitle.PRINT);
+        System.out.println("Chart " + configuration.isChartChoosed()
+                + " exData: " + configuration.isExDataChoosed()
+                + " params: " + configuration.isParamsChoosed());
         System.out.println("print");
     }
 

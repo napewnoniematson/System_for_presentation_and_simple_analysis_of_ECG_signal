@@ -32,11 +32,11 @@ public class ImageRecorder implements ImageSaveManager
     public ImageRecorder() {
         fileChooser = new FileChooser();
         prepareSaveDialogProperties();
+        prepareExtensionFilters();
     }
 
     private void prepareSaveDialogProperties() {
         fileChooser.setTitle(SAVE_CHART_DIALOG_NAME); //chyba ze bedzie tez cos innego zapisywane niz chart
-        prepareExtensionFilters();
     }
     private void prepareExtensionFilters() {
         fileChooser.getExtensionFilters().addAll(
