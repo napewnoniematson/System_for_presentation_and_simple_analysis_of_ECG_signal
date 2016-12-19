@@ -16,6 +16,7 @@ import pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager.ChartPres
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -43,16 +44,16 @@ public class ChartPresentationController implements Initializable {
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
+    private List<XYChart.Series> series;
 
-
-    public void runManager(ECGSignal ecgSignal) {
-        chartPresenter = new ChartPresentation(ecgSignal, 100000, 100100);
+    public void runManager(ECGSignal ecgSignal, int channelNumber) {
+        chartPresenter = new ChartPresentation(ecgSignal, 100000, 100100, channelNumber);
         generateOnLoad();
     }
 
     private void generateOnLoad(){
         System.out.println("generateOnLoad");
-        XYChart.Series series = chartPresenter.generate(100000, 100100);
+        series = chartPresenter.generate(100000, 100100);
         insertData(series);
         yAxis.setLowerBound(100);
         yAxis.setUpperBound(200);
@@ -60,7 +61,7 @@ public class ChartPresentationController implements Initializable {
 
     @FXML
     private void next() {
-        XYChart.Series series = chartPresenter.next();
+        series = chartPresenter.next();
         insertData(series);
     }
 
@@ -76,7 +77,7 @@ public class ChartPresentationController implements Initializable {
 
     @FXML
     private void previous() {
-        XYChart.Series series = chartPresenter.previous();
+        series = chartPresenter.previous();
         insertData(series);
     }
 
@@ -87,7 +88,7 @@ public class ChartPresentationController implements Initializable {
         try{
             int lowerBound = getLowerBoundFromTextEdit();
             int upperBound = getUpperBoundFromTextEdit();
-            XYChart.Series series = chartPresenter.generate(lowerBound, upperBound);
+            series = chartPresenter.generate(lowerBound, upperBound);
             insertData(series);
         }catch (IllegalArgumentException e){
             DialogPresenter.showInfoDialog("Generate info", "Wrong parameter", "Bound must be the natural number");
@@ -116,17 +117,16 @@ public class ChartPresentationController implements Initializable {
         xAxis.setUpperBound(upperBound);
     }
 
-    private void insertData(XYChart.Series series){
+    private void insertData(List<XYChart.Series> series){
         ecgLineChart.getData().clear();
-        int lowerBound = Integer.parseInt(((XYChart.Data) series.getData()
+        int lowerBound = Integer.parseInt(((XYChart.Data) series.get(0).getData()
                 .get(0)).getXValue().toString());
-        int upperBound = Integer.parseInt(((XYChart.Data) series.getData().
-                get(series.getData().size() - 1)).getXValue().toString());
+        int upperBound = Integer.parseInt(((XYChart.Data) series.get(0).getData().
+                get(series.get(0).getData().size() - 1)).getXValue().toString());
         setXAxisBounds(lowerBound, upperBound);
-        ecgLineChart.getData().add(series);
+        for (XYChart.Series serie : series)
+            ecgLineChart.getData().add(serie);
     }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         JFXChartUtil.setupZooming(ecgLineChart);

@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 
 public class ReadReynoldsNumberOfChannels {
 
@@ -17,7 +18,7 @@ public class ReadReynoldsNumberOfChannels {
 				  new RegexFileFilter("rawecg.\\.dat"),
 				  TrueFileFilter.INSTANCE
 				);
-
+		Logger.log(ReadReynoldsNumberOfChannels.class, "return number of channels: " + fileCrecg.size());
 		return fileCrecg.size();
 	}
 

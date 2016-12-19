@@ -7,6 +7,8 @@ import pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager.ChartSeri
 import pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager.ZoomManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
+import java.util.List;
+
 /**
  * Created by Matson on 09.12.2016.
  */
@@ -15,23 +17,25 @@ public class ChartPresentation implements ChartPresentManager {
     private ChartSeriesManager dataGenerator;
     private ChartMoveManager chartMoveWorker;
     private ZoomManager zoomWorker;
-    private XYChart.Series currentSeries;
+    private List<XYChart.Series> currentSeries;
+    private int channelNumber = 0;
 
-    public ChartPresentation(ECGSignal ecgSignal, int lowerBound, int upperBound){
+    public ChartPresentation(ECGSignal ecgSignal, int lowerBound, int upperBound, int channelNumber){
+        this.channelNumber = channelNumber;
         dataGenerator = new ChartSeriesProvider(ecgSignal);
-        currentSeries = dataGenerator.generate(lowerBound, upperBound);
-        chartMoveWorker = new ChartMoveWorker(ecgSignal, lowerBound, upperBound, currentSeries);
+        currentSeries = dataGenerator.generate(lowerBound, upperBound, channelNumber);
+        chartMoveWorker = new ChartMoveWorker(ecgSignal, lowerBound, upperBound, channelNumber, currentSeries);
 //        zoomWorker = new ZoomWorker();
     }
 
 
     @Override
-    public XYChart.Series previous() {
+    public List<XYChart.Series> previous() {
         return chartMoveWorker.previous();
     }
 
     @Override
-    public XYChart.Series next() {
+    public List<XYChart.Series> next() {
         return chartMoveWorker.next();
     }
 
@@ -41,17 +45,16 @@ public class ChartPresentation implements ChartPresentManager {
     }
 
     @Override
-    public XYChart.Series generate(int lowerBound, int upperBound) {
-        XYChart.Series series;
+    public List<XYChart.Series> generate(int lowerBound, int upperBound) {
+        List<XYChart.Series> series;
 
         if (lowerBound < upperBound){
-            series = dataGenerator.generate(lowerBound, upperBound);
+            series = dataGenerator.generate(lowerBound, upperBound, channelNumber);
             setBounds(lowerBound, upperBound);
         }else {
-            series = dataGenerator.generate(upperBound, lowerBound);
+            series = dataGenerator.generate(upperBound, lowerBound, channelNumber);
             setBounds(upperBound, lowerBound);
         }
-
         return series;
     }
 }

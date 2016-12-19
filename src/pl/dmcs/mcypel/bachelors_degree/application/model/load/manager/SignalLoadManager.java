@@ -10,8 +10,7 @@ import java.io.IOException;
  */
 public interface SignalLoadManager {
 
-    ECGSignal loadSignal(FolderChooseManager folderChooseManager) throws IOException;
+    ECGSignal loadSignal() throws IOException;
 
-    PatientPersonalData loadPatientData(FolderChooseManager folderChooseManager) throws IOException;
-
+    PatientPersonalData loadPatientData() throws IOException;
 }

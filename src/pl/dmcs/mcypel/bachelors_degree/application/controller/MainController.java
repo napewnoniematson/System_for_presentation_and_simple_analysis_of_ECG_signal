@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
+import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathNumberOfChannels;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.FolderChooseManager;
@@ -44,10 +45,11 @@ public class MainController implements Initializable{
     private void load(ActionEvent event) {
         try {
             folderChooseManager.chooseFolder();
-            ecgSignal = loadManager.loadSignal(folderChooseManager); // returns ECGSignal
-            includedViewController.runManager(ecgSignal);
-            System.out.println("Name: " + loadManager.loadPatientData(folderChooseManager).getName());
-            System.out.println("Surname: " + loadManager.loadPatientData(folderChooseManager).getSurname());
+            loadManager = new SignalLoader(folderChooseManager);
+            ecgSignal = loadManager.loadSignal(); // returns ECGSignal
+            includedViewController.runManager(ecgSignal, 3);
+            System.out.println("Name: " + loadManager.loadPatientData().getName());
+            System.out.println("Surname: " + loadManager.loadPatientData().getSurname());
         } catch (IOException e) {
             DialogPresenter.showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
         }
@@ -61,40 +63,15 @@ public class MainController implements Initializable{
 
     @FXML
     private void print() {
+
+        ReadCardioPathNumberOfChannels.load("C:\\Users\\Mateusz\\Desktop\\EKG_dane_do_pracy_inz\\CardioScan\\Save300");
         System.out.println("print");
-
-        System.out.println(includedView.getCenter().managedProperty().get());
-        System.out.println(includedView.getLeft().managedProperty().get());
-        System.out.println(includedView.getRight().managedProperty().get());
-        System.out.println(includedView.managedProperty().get());
-
-        /*System.out.println("getCenter");
-        System.out.println(((Button) includedView.getLeft()).getWidth());
-        System.out.println(includedView.getLayoutX());
-        System.out.println(includedView.getCenter().getClass());
-        System.out.println(includedView.getCenter().translateXProperty().get());
-        System.out.println(includedView.getCenter().getTranslateX());
-        System.out.println(includedView.getCenter().getLayoutX());
-        System.out.println(includedView.getCenter().translateYProperty().get());
-        System.out.println(includedView.getCenter().getTranslateY());
-        System.out.println(includedView.getCenter().getLayoutY());
-        System.out.println("getRight");
-        System.out.println(includedView.getRight().getClass());
-        System.out.println(includedView.getRight().translateXProperty().get());
-        System.out.println(includedView.getRight().getTranslateX());
-        System.out.println(includedView.getRight().getLayoutX());
-        System.out.println(includedView.getRight().translateYProperty().get());
-        System.out.println(includedView.getRight().getTranslateY());
-        System.out.println(includedView.getRight().getLayoutY());*/
-
-
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewManager = new ViewManager();
-        loadManager = new SignalLoader();
         folderChooseManager = new FolderChooser();
         imageRecorder = new ImageRecorder();
     }

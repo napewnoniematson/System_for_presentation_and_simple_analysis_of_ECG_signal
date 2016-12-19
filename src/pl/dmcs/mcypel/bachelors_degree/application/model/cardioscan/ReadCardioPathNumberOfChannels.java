@@ -1,5 +1,7 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan;
 
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -16,9 +18,9 @@ public class ReadCardioPathNumberOfChannels {
 			result=Integer.parseInt(s);
 			in.close();
 		} catch (IOException ex) {
-			System.out.println("IOException!");
-			System.out.println(ex);
-		} // end of catch
+			throw new RuntimeException(ex);
+		}
+		Logger.log(ReadCardioPathNumberOfChannels.class, "return result: " + result);
 		return result;
 	}
 	

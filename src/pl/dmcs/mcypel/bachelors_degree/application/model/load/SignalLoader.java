@@ -22,17 +22,17 @@ public class SignalLoader implements SignalLoadManager {
     private PatientPersonalData patientData;
     private FolderChooseManager folderChooseManager;
 
-    public SignalLoader(){
+    public SignalLoader(FolderChooseManager folderChooseManager){
+        this.folderChooseManager = folderChooseManager;
     }
     // TODO: 24.11.2016 wczytywanie danych w nowym watku -- tu tez?
 
     @Override
-    public ECGSignal loadSignal(FolderChooseManager folderChooseManager) throws IOException {
-        this.folderChooseManager = folderChooseManager;
+    public ECGSignal loadSignal() throws IOException {
         if (isCardioScan())
-            loadCardioScan();
+            loadCardioScanSignal();
         if (isReynolds())
-            loadReynolds();
+            loadReynoldsSignal();
         if (ecgSignal != null)
             return ecgSignal;
         else
@@ -40,8 +40,7 @@ public class SignalLoader implements SignalLoadManager {
     }
 
     @Override
-    public PatientPersonalData loadPatientData(FolderChooseManager folderChooseManager) throws IOException {
-        this.folderChooseManager = folderChooseManager;
+    public PatientPersonalData loadPatientData() throws IOException {
         if (isCardioScan())
             loadCardioPatientData();
         if (isReynolds())
@@ -57,7 +56,7 @@ public class SignalLoader implements SignalLoadManager {
         return folderChooseManager.getFolderName().contains("Save");
     }
 
-    private void loadCardioScan(){
+    private void loadCardioScanSignal(){
         ecgSignal = ReadCardioPathSimple2.load(folderChooseManager.getFolderPath(),
                 ReadCardioPathNumberOfChannels.load(folderChooseManager.getFolderPath()));
     }
@@ -70,7 +69,7 @@ public class SignalLoader implements SignalLoadManager {
         return folderChooseManager.getFolderName().contains(".FUL");
     }
 
-    private void loadReynolds(){
+    private void loadReynoldsSignal(){
         ecgSignal = ReadReynoldsSimple2.load(folderChooseManager.getFolderPath(),
                 ReadReynoldsNumberOfChannels.load(folderChooseManager.getFolderPath()));
     }
@@ -78,7 +77,4 @@ public class SignalLoader implements SignalLoadManager {
     private void loadReynoldsPatientData() {
         patientData = ReadReynoldsPatientPersonalData.load(folderChooseManager.getFolderPath());
     }
-
-
-
 }

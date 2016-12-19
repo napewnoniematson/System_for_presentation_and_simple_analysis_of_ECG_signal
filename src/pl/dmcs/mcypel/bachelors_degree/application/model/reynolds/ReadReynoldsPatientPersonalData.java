@@ -1,5 +1,6 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.reynolds;
 
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 import pl.dmcs.mcypel.bachelors_degree.application.model.patient.PatientPersonalData;
 
 import java.io.BufferedReader;
@@ -39,13 +40,9 @@ public class ReadReynoldsPatientPersonalData {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
-
-
-
-
-
+        Logger.log(ReadReynoldsPatientPersonalData.class, "return PatientData, name: "
+                + patientData.getName()
+                + " surname: " + patientData.getSurname());
         return patientData;
 
     }

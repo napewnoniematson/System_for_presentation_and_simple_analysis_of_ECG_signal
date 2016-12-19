@@ -1,5 +1,6 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan;
 
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 import pl.dmcs.mcypel.bachelors_degree.application.model.patient.PatientPersonalData;
 
 import java.io.BufferedReader;
@@ -38,6 +39,9 @@ public class ReadCardioPathPatientPersonalData {
         } catch(IOException e){
             throw new RuntimeException(e);
         }
+        Logger.log(ReadCardioPathPatientPersonalData.class, "return PatientData, name: "
+                + patientData.getName()
+                + " surname: " + patientData.getSurname());
         return patientData;
     }
 }

@@ -8,21 +8,23 @@ import java.io.IOException;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 
 //import pl.dmcs.med38.impl.signals.duration.Duration;
 //import pl.dmcs.med38.utils.constants.KardioConstants;
 
 public class ReadReynoldsDate {
 
-	public static Duration load(String path) {
-		Duration result;
+	public static DateTime load(String path) {
+
 		File directoryInfo = new File(path + File.separator + "patient.txt");
+		DateTime time;
+
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(directoryInfo));
 			try {
 				String s;
 				int counter = 0;
-				DateTime time = null;
 				int year = 0;
 				int month = 0;
 				int day = 0;
@@ -40,13 +42,7 @@ public class ReadReynoldsDate {
 						second = Integer.parseInt(s.substring(20, 22));
 					}
 				}
-				FileInputStream directoryCrecg = new FileInputStream(path + File.separator + "rawecg1.dat");
-				int size = directoryCrecg.available() / 2;
 				time = new DateTime(year, month, day, hour, minute, second);
-				result = new Duration(time.minus(size / 128), time);
-//				result.setEndTime(time);
-//				result.setBeginTime(time.minusSeconds(size/KardioConstants.samplingFrequencyReynolds));
-				directoryCrecg.close();
 			}
 			finally {
 				in.close();
@@ -54,6 +50,7 @@ public class ReadReynoldsDate {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		return result;
+		Logger.log(ReadReynoldsDate.class, "return time: " + time);
+		return time;
 	}
 }
