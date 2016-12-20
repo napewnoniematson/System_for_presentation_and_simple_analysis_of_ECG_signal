@@ -7,9 +7,9 @@ import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
 import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.model.folder.FolderChooser;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.SignalLoader;
+import pl.dmcs.mcypel.bachelors_degree.application.model.load.DataLoader;
 import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.SignalLoadManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.DataLoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.save.ImageRecorder;
 import pl.dmcs.mcypel.bachelors_degree.application.model.save.manager.ImageSaveManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
@@ -33,7 +33,7 @@ public class MainController implements Initializable{
     @FXML
     private BorderPane includedView;
     private ViewManager viewManager;
-    private SignalLoadManager loadManager;
+    private DataLoadManager loadManager;
     private ImageSaveManager imageRecorder;
     private FolderChooseManager folderChooseManager;
     @FXML
@@ -44,7 +44,7 @@ public class MainController implements Initializable{
     private void load(ActionEvent event) {
         try {
             folderChooseManager.chooseOpenFolder(null);
-            loadManager = new SignalLoader(folderChooseManager);
+            loadManager = new DataLoader(folderChooseManager);
             ecgSignal = loadManager.loadSignal(); // returns ECGSignal
             includedViewController.runManager(ecgSignal, 3);
             System.out.println("Name: " + loadManager.loadExaminationData().getName());

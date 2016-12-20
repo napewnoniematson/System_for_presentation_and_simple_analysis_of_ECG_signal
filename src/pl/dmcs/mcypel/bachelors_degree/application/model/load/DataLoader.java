@@ -5,7 +5,7 @@ import org.joda.time.Duration;
 import pl.dmcs.mcypel.bachelors_degree.application.model.examination.ExaminationData;
 import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.ElectrocardiographLoadManager;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.SignalLoadManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.DataLoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.patient.PatientPersonalData;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
@@ -14,12 +14,12 @@ import java.io.IOException;
 /**
  * Created by Matson on 08.12.2016.
  */
-public class SignalLoader implements SignalLoadManager {
+public class DataLoader implements DataLoadManager {
 
     private FolderChooseManager folderChooseManager;
     private ElectrocardiographLoadManager electrocardiographLoader;
 
-    public SignalLoader(FolderChooseManager folderChooseManager){
+    public DataLoader(FolderChooseManager folderChooseManager){
         this.folderChooseManager = folderChooseManager;
         electrocardiographLoader = getElectrocartiographLoader();
 

@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Created by Matson on 08.12.2016.
  */
-public interface SignalLoadManager {
+public interface DataLoadManager {
 
     ECGSignal loadSignal() throws IOException;
 
