@@ -1,5 +1,6 @@
 package pl.dmcs.mcypel.bachelors_degree.application.controller;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
@@ -7,12 +8,12 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import org.gillius.jfxutils.chart.JFXChartUtil;
 import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
-import pl.dmcs.mcypel.bachelors_degree.application.model.chart.ChartPresentation;
-import pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager.ChartPresentManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
+import pl.dmcs.mcypel.bachelors_degree.application.model.SignalFilter;
+import pl.dmcs.mcypel.bachelors_degree.application.model.chart.ChartSeriesProvider;
+import pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager.ChartSeriesManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
 import java.net.URL;
@@ -24,10 +25,9 @@ import java.util.ResourceBundle;
  */
 public class ChartPresentationController implements Initializable {
 
-    private ChartPresentManager chartPresenter;
 
-    // TODO: 24.11.2016 generowanie wykresu w nowym watku
-// TODO: 12.12.2016 filtr ktory zwroci lower/upper bound do generowania startowego
+    private final static int BOUND_DIFFERENCE = 300;
+
     @FXML
     private LineChart ecgLineChart;
     @FXML
@@ -44,56 +44,39 @@ public class ChartPresentationController implements Initializable {
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
-    private List<XYChart.Series> series;
 
-    public void runManager(ECGSignal ecgSignal, int channelNumber) {
-        chartPresenter = new ChartPresentation(ecgSignal, 100000, 100100, channelNumber);
-        generateOnLoad();
-    }
+    private ChartSeriesManager seriesManager;
+    private ObservableList<XYChart.Series> series;
 
-    private void generateOnLoad(){
-        System.out.println("generateOnLoad");
-        series = chartPresenter.generate(100000, 100100);
+    public void runManager(ECGSignal ecgSignal, int channels) {
+        seriesManager = new ChartSeriesProvider(ecgSignal, channels);
+        int startBound = SignalFilter.filter(ecgSignal);
+        series = seriesManager.generateSeries(startBound, startBound + BOUND_DIFFERENCE);
         insertData(series);
-        yAxis.setLowerBound(100);
-        yAxis.setUpperBound(200);
+        yAxis.setLowerBound(2550);
+        yAxis.setUpperBound(6400);
     }
 
     @FXML
     private void next() {
-        series = chartPresenter.next();
+        series = seriesManager.getNextSeries();
         insertData(series);
     }
-
-    // TODO: 12.12.2016 onKeyPressed = "#next_test"
-//    @FXML
-//    private void next_test(KeyEvent keyEvent){
-//        if (keyEvent.getCode() == KeyCode.RIGHT){
-//            next();
-//            keyEvent.consume();
-//        }
-//    }
-
 
     @FXML
     private void previous() {
-        series = chartPresenter.previous();
+        series = seriesManager.getPreviousSeries();
         insertData(series);
     }
 
-    // TODO: 12.12.2016 zostaja stare currentSeries, dlatego raz jak sie kliknie next to wczytuje stare
-    // TODO: 15.12.2016 dac buttony do generowania na disable
     @FXML
     private void generate() {
         try{
-            int lowerBound = getLowerBoundFromTextEdit();
-            int upperBound = getUpperBoundFromTextEdit();
-            series = chartPresenter.generate(lowerBound, upperBound);
+            series = seriesManager.generateSeries(getLowerBoundFromTextEdit(), getUpperBoundFromTextEdit());
             insertData(series);
         }catch (IllegalArgumentException e){
             DialogPresenter.showInfoDialog("Generate info", "Wrong parameter", "Bound must be the natural number");
         }
-
     }
 
     private int getBoundFromTextEdit(TextField textField) {
@@ -111,19 +94,14 @@ public class ChartPresentationController implements Initializable {
         return getBoundFromTextEdit(upperBoundTextField);
     }
 
-
-    private void setXAxisBounds(int lowerBound, int upperBound){
-        xAxis.setLowerBound(lowerBound);
-        xAxis.setUpperBound(upperBound);
-    }
-
     private void insertData(List<XYChart.Series> series){
         ecgLineChart.getData().clear();
         int lowerBound = Integer.parseInt(((XYChart.Data) series.get(0).getData()
                 .get(0)).getXValue().toString());
         int upperBound = Integer.parseInt(((XYChart.Data) series.get(0).getData().
                 get(series.get(0).getData().size() - 1)).getXValue().toString());
-        setXAxisBounds(lowerBound, upperBound);
+        xAxis.setLowerBound(lowerBound);
+        xAxis.setUpperBound(upperBound);
         for (XYChart.Series serie : series)
             ecgLineChart.getData().add(serie);
     }

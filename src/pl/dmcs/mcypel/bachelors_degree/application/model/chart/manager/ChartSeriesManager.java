@@ -1,5 +1,6 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.chart.manager;
 
+import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import java.util.List;
 
@@ -8,6 +9,11 @@ import java.util.List;
  */
 public interface ChartSeriesManager {
 
-    List<XYChart.Series> generate(int lowerBound, int upperBound, int channelNumber);
+    ObservableList<XYChart.Series> generateSeries(int lowerBound, int upperBound);
+
+    ObservableList<XYChart.Series> getNextSeries();
+
+    ObservableList<XYChart.Series> getPreviousSeries();
+
 
 }

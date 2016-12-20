@@ -5,25 +5,25 @@ package pl.dmcs.mcypel.bachelors_degree.application.model;
  */
 public class ChoiceConfiguration {
 
-    private boolean isChartChoosed;
-    private boolean isExDataChoosed;
-    private boolean isParamsChoosed;
+    private boolean isChartSelected;
+    private boolean isExDataSelected;
+    private boolean isParamsSelected;
 
-    public ChoiceConfiguration(boolean isChartChoosed, boolean isExDataChoosed, boolean isParamsChoosed) {
-        this.isChartChoosed = isChartChoosed;
-        this.isExDataChoosed = isExDataChoosed;
-        this.isParamsChoosed = isParamsChoosed;
+    public ChoiceConfiguration(boolean isChartSelected, boolean isExDataSelected, boolean isParamsSelected) {
+        this.isChartSelected = isChartSelected;
+        this.isExDataSelected = isExDataSelected;
+        this.isParamsSelected = isParamsSelected;
     }
 
-    public boolean isChartChoosed() {
-        return isChartChoosed;
+    public boolean isChartSelected() {
+        return isChartSelected;
     }
 
-    public boolean isExDataChoosed() {
-        return isExDataChoosed;
+    public boolean isExDataSelected() {
+        return isExDataSelected;
     }
 
-    public boolean isParamsChoosed() {
-        return isParamsChoosed;
+    public boolean isParamsSelected() {
+        return isParamsSelected;
     }
 }

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
 import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
+import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 import pl.dmcs.mcypel.bachelors_degree.application.model.folder.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.DataLoader;
 import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
@@ -46,9 +47,7 @@ public class MainController implements Initializable{
             folderChooseManager.chooseOpenFolder(null);
             loadManager = new DataLoader(folderChooseManager);
             ecgSignal = loadManager.loadSignal(); // returns ECGSignal
-            includedViewController.runManager(ecgSignal, 3);
-            System.out.println("Name: " + loadManager.loadExaminationData().getName());
-            System.out.println("Surname: " + loadManager.loadExaminationData().getSurname());
+            includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber());
         } catch (IOException e) {
             DialogPresenter.showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
         }
@@ -69,9 +68,9 @@ public class MainController implements Initializable{
     private void print() {
 
         ChoiceConfiguration configuration = DialogPresenter.showChoiceDialog(DialogPresenter.ConfigurationTitle.PRINT);
-        System.out.println("Chart " + configuration.isChartChoosed()
-                + " exData: " + configuration.isExDataChoosed()
-                + " params: " + configuration.isParamsChoosed());
+        System.out.println("Chart " + configuration.isChartSelected()
+                + " exData: " + configuration.isExDataSelected()
+                + " params: " + configuration.isParamsSelected());
         System.out.println("print");
     }
 
