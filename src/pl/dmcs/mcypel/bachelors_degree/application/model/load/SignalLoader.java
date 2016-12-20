@@ -1,14 +1,12 @@
 package pl.dmcs.mcypel.bachelors_degree.application.model.load;
 
-import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathNumberOfChannels;
-import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathPatientPersonalData;
-import pl.dmcs.mcypel.bachelors_degree.application.model.cardioscan.ReadCardioPathSimple2;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import pl.dmcs.mcypel.bachelors_degree.application.model.examination.ExaminationData;
 import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.ElectrocardiographLoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.SignalLoadManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.patient.PatientPersonalData;
-import pl.dmcs.mcypel.bachelors_degree.application.model.reynolds.ReadReynoldsNumberOfChannels;
-import pl.dmcs.mcypel.bachelors_degree.application.model.reynolds.ReadReynoldsPatientPersonalData;
-import pl.dmcs.mcypel.bachelors_degree.application.model.reynolds.ReadReynoldsSimple2;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
 import java.io.IOException;
@@ -18,21 +16,21 @@ import java.io.IOException;
  */
 public class SignalLoader implements SignalLoadManager {
 
-    private ECGSignal ecgSignal;
-    private PatientPersonalData patientData;
     private FolderChooseManager folderChooseManager;
+    private ElectrocardiographLoadManager electrocardiographLoader;
 
     public SignalLoader(FolderChooseManager folderChooseManager){
         this.folderChooseManager = folderChooseManager;
+        electrocardiographLoader = getElectrocartiographLoader();
+
     }
     // TODO: 24.11.2016 wczytywanie danych w nowym watku -- tu tez?
 
     @Override
     public ECGSignal loadSignal() throws IOException {
-        if (isCardioScan())
-            loadCardioScanSignal();
-        if (isReynolds())
-            loadReynoldsSignal();
+        String path = folderChooseManager.getFolderPath();
+        int channels = electrocardiographLoader.loadNumberOfChannels(path);
+        ECGSignal ecgSignal = electrocardiographLoader.loadECGSignal(path, channels);
         if (ecgSignal != null)
             return ecgSignal;
         else
@@ -40,41 +38,34 @@ public class SignalLoader implements SignalLoadManager {
     }
 
     @Override
-    public PatientPersonalData loadPatientData() throws IOException {
-        if (isCardioScan())
-            loadCardioPatientData();
-        if (isReynolds())
-            loadReynoldsPatientData();
+    public ExaminationData loadExaminationData() throws IOException {
+        String path = folderChooseManager.getFolderPath();
+        int channels = electrocardiographLoader.loadNumberOfChannels(path);
 
-        if (patientData != null)
-            return patientData;
-        else
-            throw new IOException("patientData is null");
+        PatientPersonalData patientData = electrocardiographLoader.loadPatientData(path);
+        DateTime examinationDate = electrocardiographLoader.loadExaminationDate(path);
+        Duration examinationDuration = electrocardiographLoader.loadExaminationDuration(path, examinationDate,channels);
+        return new ExaminationData(patientData, examinationDate, examinationDuration);
+        // TODO: 20.12.2016 jakies zabezpieczenia tak jak w load signal??
     }
 
-    private boolean isCardioScan(){
-        return folderChooseManager.getFolderName().contains("Save");
+    private ElectrocardiographLoadManager getElectrocartiographLoader() {
+        String folderName = folderChooseManager.getFolderName();
+        if (isCardioScan(folderName))
+            return new CardioscanLoader();
+        if (isReynolds(folderName))
+            return new ReynoldsLoader();
+
+        return null;
     }
 
-    private void loadCardioScanSignal(){
-        ecgSignal = ReadCardioPathSimple2.load(folderChooseManager.getFolderPath(),
-                ReadCardioPathNumberOfChannels.load(folderChooseManager.getFolderPath()));
+    private boolean isCardioScan(String folderName){
+        return folderName.contains("Save");
     }
 
-    private void loadCardioPatientData() {
-        patientData = ReadCardioPathPatientPersonalData.load(folderChooseManager.getFolderPath());
+
+    private boolean isReynolds(String folderName){
+        return folderName.contains(".FUL");
     }
 
-    private boolean isReynolds(){
-        return folderChooseManager.getFolderName().contains(".FUL");
-    }
-
-    private void loadReynoldsSignal(){
-        ecgSignal = ReadReynoldsSimple2.load(folderChooseManager.getFolderPath(),
-                ReadReynoldsNumberOfChannels.load(folderChooseManager.getFolderPath()));
-    }
-
-    private void loadReynoldsPatientData() {
-        patientData = ReadReynoldsPatientPersonalData.load(folderChooseManager.getFolderPath());
-    }
 }

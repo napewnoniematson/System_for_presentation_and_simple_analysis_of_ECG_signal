@@ -47,8 +47,8 @@ public class MainController implements Initializable{
             loadManager = new SignalLoader(folderChooseManager);
             ecgSignal = loadManager.loadSignal(); // returns ECGSignal
             includedViewController.runManager(ecgSignal, 3);
-            System.out.println("Name: " + loadManager.loadPatientData().getName());
-            System.out.println("Surname: " + loadManager.loadPatientData().getSurname());
+            System.out.println("Name: " + loadManager.loadExaminationData().getName());
+            System.out.println("Surname: " + loadManager.loadExaminationData().getSurname());
         } catch (IOException e) {
             DialogPresenter.showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
         }
