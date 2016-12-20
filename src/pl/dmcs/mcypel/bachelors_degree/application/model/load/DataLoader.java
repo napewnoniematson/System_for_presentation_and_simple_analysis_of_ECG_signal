@@ -63,7 +63,6 @@ public class DataLoader implements DataLoadManager {
         return folderName.contains("Save");
     }
 
-
     private boolean isReynolds(String folderName){
         return folderName.contains(".FUL");
     }

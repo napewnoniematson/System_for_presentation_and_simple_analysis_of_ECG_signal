@@ -15,7 +15,6 @@ public class ImageFileChooser implements ImageFileChooseManager {
 
 
     private FileChooser fileChooser;
-    private File file;
 
     public ImageFileChooser() {
         fileChooser = new FileChooser();
@@ -28,17 +27,14 @@ public class ImageFileChooser implements ImageFileChooseManager {
     }
 
     @Override
-    public void chooseSaveFile(Window window) throws IOException {
-        file = fileChooser.showSaveDialog(window);
-        if (file == null)
-            throw new IOException("File is null");
-        else
+    public File chooseSaveFile(Window window) throws IOException {
+        File file = fileChooser.showSaveDialog(window);
+        if (file != null) {
             Logger.log(ImageFileChooser.class, "Creating file from SaveDialog");
-    }
-
-    @Override
-    public File getSaveFile() {
-        return file;
+            return file;
+        }
+        else
+            throw new IOException("File is null");
     }
 
     public FileChooser.ExtensionFilter prepareExtensionFilter(ImageFilters imageFilters) {
@@ -53,7 +49,7 @@ public class ImageFileChooser implements ImageFileChooseManager {
 
         private String extension, description;
 
-        ImageFilters(String extension, String description){
+        ImageFilters(String extension, String description) {
             this.extension = extension;
             this.description = description;
         }

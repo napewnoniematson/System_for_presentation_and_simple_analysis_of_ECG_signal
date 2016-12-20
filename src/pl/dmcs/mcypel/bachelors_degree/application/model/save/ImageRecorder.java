@@ -43,7 +43,6 @@ public class ImageRecorder implements ImageSaveManager
     }
 
     private File getSaveFile(Window window) throws IOException {
-        fileChooser.chooseSaveFile(window);
-        return fileChooser.getSaveFile();
+        return fileChooser.chooseSaveFile(window);
     }
 }

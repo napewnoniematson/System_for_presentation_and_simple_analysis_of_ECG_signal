@@ -10,8 +10,5 @@ import java.io.IOException;
  */
 public interface ImageFileChooseManager {
 
-    void chooseSaveFile(Window window) throws IOException;
-
-    File getSaveFile();
-
+    File chooseSaveFile(Window window) throws IOException;
 }
