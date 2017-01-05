@@ -1,5 +1,6 @@
 package pl.dmcs.mcypel.bachelors_degree.application.controller;
 
+import com.sun.deploy.jardiff.JarDiff;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,7 +9,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import jdk.internal.org.objectweb.asm.util.ASMifier;
 import org.gillius.jfxutils.chart.JFXChartUtil;
+import pl.dmcs.mcypel.bachelors_degree.AppStart;
 import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
 import pl.dmcs.mcypel.bachelors_degree.application.model.SignalFilter;
@@ -94,6 +97,7 @@ public class ChartPresentationController implements Initializable {
         return getBoundFromTextEdit(upperBoundTextField);
     }
 
+    // TODO: 20.12.2016 ogarnac to
     private void insertData(List<XYChart.Series> series){
         ecgLineChart.getData().clear();
         int lowerBound = Integer.parseInt(((XYChart.Data) series.get(0).getData()

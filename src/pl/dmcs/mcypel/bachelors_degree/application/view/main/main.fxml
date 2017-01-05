@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
+<BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
    <top>
       <Label text="System for presentation and simple analysis of ECG signal" BorderPane.alignment="CENTER">
          <font>
@@ -27,9 +27,9 @@
               <VBox alignment="TOP_CENTER">
                <HBox alignment="CENTER_LEFT" spacing="4.0">
                   <children>
-                     <Button fx:id="loadButton" text="Load" onAction="#load"/>
-                     <Button fx:id="saveButton" text="Save" onAction="#save"/>
-                     <Button fx:id="printButton" text="Print" onAction="#print"/>
+                     <Button fx:id="loadButton" onAction="#load" text="Load" />
+                     <Button fx:id="saveButton" onAction="#save" text="Save" />
+                     <Button fx:id="printButton" onAction="#print" text="Print" />
                   </children>
                </HBox>
 
