@@ -1,13 +1,12 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            xmlns:fx="http://javafx.com/fxml">
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null">
     <top>
         <Label text="Information about parameters" BorderPane.alignment="CENTER" />
     </top>
@@ -23,12 +22,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER" text="Param1" GridPane.halignment="CENTER" />
-                <Label  text="Value1" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                <Label alignment="CENTER" text="Pulse" GridPane.halignment="CENTER" />
+                <Label text="Value1" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                 <Label text="Param2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                <Label  text="Value2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <Label text="Value2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                 <Label text="Param3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                <Label  text="Value3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                <Label text="Value3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             </children>
         </GridPane>
     </center>

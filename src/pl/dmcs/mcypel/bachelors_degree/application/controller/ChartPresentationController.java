@@ -111,7 +111,7 @@ public class ChartPresentationController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        JFXChartUtil.setupZooming(ecgLineChart);
+//        JFXChartUtil.setupZooming(ecgLineChart);
     }
 }
 

@@ -4,12 +4,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
+<BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController"
+            stylesheets="@../../../buttonsStyle.css">
    <top>
       <Label text="System for presentation and simple analysis of ECG signal" BorderPane.alignment="CENTER">
          <font>
@@ -25,11 +28,11 @@
          <children>
              <Separator orientation="VERTICAL" />
               <VBox alignment="TOP_CENTER">
-               <HBox alignment="CENTER_LEFT" spacing="4.0">
+               <HBox alignment="CENTER" spacing="15.0">
                   <children>
-                     <Button fx:id="loadButton" onAction="#load" text="Load" />
-                     <Button fx:id="saveButton" onAction="#save" text="Save" />
-                     <Button fx:id="printButton" onAction="#print" text="Print" />
+                     <Button fx:id="loadButton" onAction="#load" text="Load" styleClass="menuButton" />
+                     <Button fx:id="saveButton" onAction="#save" text="Save" styleClass="menuButton"/>
+                     <Button fx:id="printButton" onAction="#print" text="Print" styleClass="menuButton"/>
                   </children>
                </HBox>
 
@@ -39,6 +42,11 @@
                      <fx:include source="../included/parameters.fxml" />
                  </items>
                </SplitPane>
+               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../../images/pulse.gif" />
+                  </image>
+               </ImageView>
 
               </VBox>
          </children>

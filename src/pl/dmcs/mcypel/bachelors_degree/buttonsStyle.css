@@ -1,0 +1,15 @@
+.menuButton, .slideButton {
+	-fx-outer-border: #5C6BC0;
+	-fx-body-color: white;
+	-fx-background-color:
+	    -fx-outer-border,
+	    -fx-body-color;
+		-fx-background-insets: 0.0, 1.0;
+
+    -fx-text-fill: 5C6BC0;
+}
+
+.menuButton:hover, .slideButton:hover {
+	-fx-background-color: #5C6BC0;
+	-fx-text-fill: white;
+}
