@@ -4,8 +4,7 @@
 	-fx-background-color:
 	    -fx-outer-border,
 	    -fx-body-color;
-		-fx-background-insets: 0.0, 1.0;
-
+	-fx-background-insets: 0.0, 1.0;
     -fx-text-fill: 5C6BC0;
 }
 

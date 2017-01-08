@@ -15,12 +15,13 @@
 
     <center>
         <StackPane stylesheets="@../../../chartStyle.css">
-            <LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" legendSide="BOTTOM" BorderPane.alignment="CENTER">
+            <LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" legendSide="BOTTOM" BorderPane.alignment="CENTER"
+                       horizontalGridLinesVisible="false" verticalGridLinesVisible="false">
                 <xAxis>
-                    <NumberAxis autoRanging="false" side="BOTTOM" fx:id="xAxis" />
+                    <NumberAxis autoRanging="false" side="BOTTOM" fx:id="xAxis" tickLabelRotation="90" tickMarkVisible="false"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis fx:id="yAxis" autoRanging="false" side="LEFT" />
+                    <NumberAxis fx:id="yAxis" autoRanging="false" side="LEFT" lowerBound="0" upperBound="6600" tickMarkVisible="false" />
                 </yAxis>
             </LineChart>
             <Rectangle fx:id="selectedRectangle" fill="dodgerblue" height="0.0" managed="false" mouseTransparent="true" opacity="0.3" stroke="#002966" strokeType="INSIDE" strokeWidth="3.0" width="0.0" x="0.0" y="0.0" BorderPane.alignment="TOP_LEFT" />

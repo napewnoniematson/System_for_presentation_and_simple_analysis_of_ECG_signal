@@ -100,7 +100,7 @@ public abstract class BaseDurationField extends DurationField implements Seriali
      * instant".
      *
      * <p>The default implementation returns
-     * <code>Utils.safeToInt(getAsLong(millisDuration, instant))</code>.
+     * <code>utils.safeToInt(getAsLong(millisDuration, instant))</code>.
      * 
      * @param duration  the milliseconds to query, which may be negative
      * @param instant  the start instant to calculate relative to

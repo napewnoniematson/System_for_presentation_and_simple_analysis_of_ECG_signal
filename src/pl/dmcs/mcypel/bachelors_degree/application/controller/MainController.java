@@ -6,13 +6,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
 import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
-import pl.dmcs.mcypel.bachelors_degree.application.model.Logger;
-import pl.dmcs.mcypel.bachelors_degree.application.model.folder.FolderChooser;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.DataLoader;
-import pl.dmcs.mcypel.bachelors_degree.application.model.folder.manager.FolderChooseManager;
-import pl.dmcs.mcypel.bachelors_degree.application.model.load.manager.DataLoadManager;
-import pl.dmcs.mcypel.bachelors_degree.application.model.save.ImageRecorder;
-import pl.dmcs.mcypel.bachelors_degree.application.model.save.manager.ImageSaveManager;
+import pl.dmcs.mcypel.bachelors_degree.application.model.examination.ExaminationData;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.folder.FolderChooser;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.load.DataLoader;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.folder.manager.FolderChooseManager;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.load.manager.DataLoadManager;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.save.ImageRecorder;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.save.manager.ImageSaveManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
 
@@ -28,7 +28,7 @@ public class MainController implements Initializable{
     // TODO: 24.11.2016 bindowanie + propertasy do wyswietlania danych pacjenta ??
 
     private static final String CHART_PRESENTATION_FXML_PATH = "../../view/included/chart_presentation.fxml";
-    private static final String PATIENT_DATA_FXML_PATH = "../../view/included/patient_data.fxml";
+    private static final String PATIENT_DATA_FXML_PATH = "../../view/included/examination_data.fxml";
     private static final String PARAMETERS_FXML_PATH = "../../view/included/parameters.fxml";
 
     @FXML
@@ -39,7 +39,10 @@ public class MainController implements Initializable{
     private FolderChooseManager folderChooseManager;
     @FXML
     private ChartPresentationController includedViewController;
+    @FXML
+    private ExaminationDataController includedExaminationDataViewController;
     private ECGSignal ecgSignal;
+    private ExaminationData examinationData;
 
     @FXML
     private void load(ActionEvent event) {
@@ -47,7 +50,9 @@ public class MainController implements Initializable{
             folderChooseManager.chooseOpenFolder(null);
             loadManager = new DataLoader(folderChooseManager);
             ecgSignal = loadManager.loadSignal(); // returns ECGSignal
+            examinationData = loadManager.loadExaminationData();
             includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber());
+            includedExaminationDataViewController.showDataOnView(examinationData);
         } catch (IOException e) {
             DialogPresenter.showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
         }

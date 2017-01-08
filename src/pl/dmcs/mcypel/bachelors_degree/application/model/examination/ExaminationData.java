@@ -20,45 +20,15 @@ public class ExaminationData {
         this.examinationDuration = examinationDuration;
     }
 
-    public String getPatientName() {
-        return patientPersonalData.getName();
+    public PatientPersonalData getPatientPersonalData() {
+        return patientPersonalData;
     }
 
-    public String getPatiendSurname() {
-        return patientPersonalData.getSurname();
+    public Duration getExaminationDuration() {
+        return examinationDuration;
     }
 
-    /**
-     *
-     * @return examination date in format mm-dd-yyyy:
-     */
-    public String getExaminationDate() {
-        return examinationDate.getMonthOfYear()
-                + "-"
-                + examinationDate.getDayOfMonth()
-                + "-"
-                + examinationDate.getYear();
+    public DateTime getExaminationDate() {
+        return examinationDate;
     }
-
-    /**
-     *
-     * @return examination time in format hh:mm:ss
-     */
-    public String getExaminationTime() {
-        return examinationDate.getHourOfDay()
-                + ":"
-                + examinationDate.getMinuteOfHour()
-                + ":"
-                + examinationDate.getSecondOfMinute();
-    }
-
-    // TODO: 20.12.2016 stegowac getDurationTime
-    public String getDuration() {
-        return null;
-    }
-
-
-
-
-
 }
