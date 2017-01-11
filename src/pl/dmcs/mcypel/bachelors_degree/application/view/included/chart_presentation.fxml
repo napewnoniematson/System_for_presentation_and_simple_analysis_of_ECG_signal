@@ -9,41 +9,36 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ChartPresentationController">
-
 
     <center>
         <StackPane stylesheets="@../../../styles/chartStyle.css">
-            <VBox fx:id="chartsContainer" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
-
-            </VBox>
-            <!--<LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" horizontalGridLinesVisible="false" legendSide="BOTTOM" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" verticalGridLinesVisible="false" BorderPane.alignment="CENTER">
+            <LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" horizontalGridLinesVisible="false" legendSide="BOTTOM" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" verticalGridLinesVisible="false" BorderPane.alignment="CENTER">
                 <xAxis>
                     <NumberAxis autoRanging="false" side="BOTTOM" tickLabelRotation="90" tickMarkVisible="false" fx:id="xAxis" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis fx:id="yAxis" autoRanging="false" lowerBound="100" side="LEFT" tickMarkVisible="false" upperBound="230" />
                 </yAxis>
-            </LineChart>-->
+            </LineChart>
             <!--<Rectangle fx:id="selectedRectangle" fill="dodgerblue" height="0.0" managed="false" mouseTransparent="true" opacity="0.3" stroke="#002966" strokeType="INSIDE" strokeWidth="3.0" width="0.0" x="0.0" y="0.0" BorderPane.alignment="TOP_LEFT" />-->
         </StackPane>
-
    </center>
-   <top>
-      <HBox alignment="CENTER" spacing="4.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Lower value" textAlignment="CENTER" />
-            <TextField fx:id="lowerBoundTextField" alignment="CENTER" />
-            <Label text="Upper value" textAlignment="CENTER" />
-            <TextField fx:id="upperBoundTextField" alignment="CENTER" />
-            <Button fx:id="generateButton" onAction="#generate" text="Generate" textAlignment="CENTER" />
-         </children>
-      </HBox>
-   </top>
-
     <bottom>
         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
             <Button fx:id="previousButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#previous" styleClass="slideButton" text="&lt;" BorderPane.alignment="CENTER" />
+            <HBox alignment="CENTER" spacing="4.0" BorderPane.alignment="CENTER">
+                <children>
+                    <Label text="Lower value" textAlignment="CENTER" />
+                    <TextField fx:id="lowerBoundTextField" alignment="CENTER" />
+                    <Label text="Upper value" textAlignment="CENTER" />
+                    <TextField fx:id="upperBoundTextField" alignment="CENTER" />
+                    <Button fx:id="generateButton" onAction="#generate" text="Generate" textAlignment="CENTER" />
+                </children>
+            </HBox>
+
             <Button fx:id="nextButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#next" styleClass="slideButton" text="&gt;" BorderPane.alignment="CENTER" />
         </HBox>
     </bottom>

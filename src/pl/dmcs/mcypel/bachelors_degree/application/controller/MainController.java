@@ -35,8 +35,8 @@ public class MainController implements Initializable{
 
     @FXML
     private BorderPane includedView;
-    @FXML
-    private VBox rightVBox;
+//    @FXML
+//    private VBox rightVBox;
     private ViewManager viewManager;
     private DataLoadManager loadManager;
     private ImageSaveManager imageRecorder;
@@ -56,8 +56,9 @@ public class MainController implements Initializable{
             ecgSignal = loadManager.loadSignal(); // returns ECGSignal
             examinationData = loadManager.loadExaminationData();
             includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber());
-            includedExaminationDataViewController.showDataOnView(examinationData);
-            rightVBox.getChildren().addAll(ChannelChoiceBoxCreator.createCheckBoxMenu(ecgSignal.getChannelsNumber()));
+            includedExaminationDataViewController.showDataOnView(folderChooseManager.getFolderName(),
+                    ecgSignal.getSamplingFrequency(),examinationData);
+//            rightVBox.getChildren().addAll(ChannelChoiceBoxCreator.createCheckBoxMenu(ecgSignal.getChannelsNumber()));
         } catch (IOException e) {
             DialogPresenter.showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
         }

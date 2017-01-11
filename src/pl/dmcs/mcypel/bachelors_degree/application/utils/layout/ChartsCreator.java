@@ -13,6 +13,7 @@ import java.util.List;
  */
 public final class ChartsCreator {
 
+    // TODO: 11.01.2017 na razie useless
     public static List<LineChart> createCharts(int channels) {
         List<LineChart> charts = new ArrayList<>();
         for (int i = 0; i < channels; ++i) {

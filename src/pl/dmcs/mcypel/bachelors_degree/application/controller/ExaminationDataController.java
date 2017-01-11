@@ -10,15 +10,17 @@ import pl.dmcs.mcypel.bachelors_degree.application.model.examination.Examination
 public class ExaminationDataController {
 
     @FXML
-    private Label namePatientLbl,surnamePatientLbl, examinationDateLbl, examinationTimeLbl;
+    private Label namePatientLbl,surnamePatientLbl, examinationDateLbl, examinationTimeLbl,
+            folderNameLbl, frequencyLbl;
 
-    public void showDataOnView(ExaminationData examinationData) {
+    public void showDataOnView(String folderName, int frequency, ExaminationData examinationData) {
+        folderNameLbl.setText(folderName);
+        frequencyLbl.setText(frequency + " Hz");
         namePatientLbl.setText(getPatientName(examinationData));
         surnamePatientLbl.setText(getPatiendSurname(examinationData));
         examinationDateLbl.setText(getExaminationDate(examinationData));
         examinationTimeLbl.setText(getExaminationTime(examinationData));
     }
-
     private String getPatientName(ExaminationData examinationData) {
         return examinationData.getPatientPersonalData().getName();
     }

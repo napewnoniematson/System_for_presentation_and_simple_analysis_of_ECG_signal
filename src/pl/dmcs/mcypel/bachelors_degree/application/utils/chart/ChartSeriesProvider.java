@@ -20,8 +20,7 @@ public class ChartSeriesProvider implements ChartSeriesManager {
     public ChartSeriesProvider(ECGSignal ecgSignal, int channels) {
         this.ecgSignal = ecgSignal;
         this.channels = channels;
-        filteredSignals = filterSignals(ecgSignal.getAllData(), ecgSignal.getSamplingFrequency(), 50);
-        filteredSignals = filterSignals(filteredSignals, ecgSignal.getSamplingFrequency(), 30);
+        filteredSignals = filterSignals(ecgSignal.getAllData(), ecgSignal.getSamplingFrequency(), 7);
     }
 
     @Override
