@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
-import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.ChannelChoiceBoxCreator;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.model.examination.ExaminationData;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.folder.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.load.DataLoader;
@@ -33,6 +35,8 @@ public class MainController implements Initializable{
 
     @FXML
     private BorderPane includedView;
+    @FXML
+    private VBox rightVBox;
     private ViewManager viewManager;
     private DataLoadManager loadManager;
     private ImageSaveManager imageRecorder;
@@ -53,6 +57,7 @@ public class MainController implements Initializable{
             examinationData = loadManager.loadExaminationData();
             includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber());
             includedExaminationDataViewController.showDataOnView(examinationData);
+            rightVBox.getChildren().addAll(ChannelChoiceBoxCreator.createCheckBoxMenu(ecgSignal.getChannelsNumber()));
         } catch (IOException e) {
             DialogPresenter.showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
         }

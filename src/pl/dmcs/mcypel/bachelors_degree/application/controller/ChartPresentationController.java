@@ -1,6 +1,5 @@
 package pl.dmcs.mcypel.bachelors_degree.application.controller;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
@@ -8,9 +7,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import pl.dmcs.mcypel.bachelors_degree.application.model.DialogPresenter;
+import javafx.scene.layout.VBox;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.model.SignalFilter;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.ChartSeriesProvider;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.ChartsCreator;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.manager.ChartSeriesManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
 
@@ -42,29 +43,34 @@ public class ChartPresentationController implements Initializable {
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
+    @FXML
+    private VBox chartsContainer;
+    private List<LineChart> charts;
 
     private ChartSeriesManager seriesManager;
 
     public void runManager(ECGSignal ecgSignal, int channels) {
         seriesManager = new ChartSeriesProvider(ecgSignal, channels);
         int startBound = SignalFilter.filter(ecgSignal);
-        insertData(seriesManager.generateSeries(startBound, startBound + BOUND_DIFFERENCE));
+        charts = ChartsCreator.createCharts(channels);
+        chartsContainer.getChildren().addAll(charts);
+        insertData(charts, seriesManager.generateSeries(startBound, startBound + BOUND_DIFFERENCE));
     }
 
     @FXML
     private void next() {
-        insertData(seriesManager.getNextSeries());
+        insertData(charts, seriesManager.getNextSeries());
     }
 
     @FXML
     private void previous() {
-        insertData(seriesManager.getPreviousSeries());
+        insertData(charts, seriesManager.getPreviousSeries());
     }
 
     @FXML
     private void generate() {
         try{
-            insertData(seriesManager.generateSeries(getLowerBoundFromTextEdit(), getUpperBoundFromTextEdit()));
+            insertData(charts, seriesManager.generateSeries(getLowerBoundFromTextEdit(), getUpperBoundFromTextEdit()));
         }catch (IllegalArgumentException e){
             DialogPresenter.showInfoDialog("Generate info", "Wrong parameter", "Bound must be the natural number");
         }
@@ -86,17 +92,27 @@ public class ChartPresentationController implements Initializable {
     }
 
     // TODO: 20.12.2016 ogarnac to
-    private void insertData(List<XYChart.Series> series){
-        ecgLineChart.getData().clear();
+    private void insertData(List<LineChart> charts, List<XYChart.Series> series){
         int lowerBound = Integer.parseInt(((XYChart.Data) series.get(0).getData()
                 .get(0)).getXValue().toString());
         int upperBound = Integer.parseInt(((XYChart.Data) series.get(0).getData().
                 get(series.get(0).getData().size() - 1)).getXValue().toString());
-        xAxis.setLowerBound(lowerBound);
-        xAxis.setUpperBound(upperBound);
-        for (XYChart.Series serie : series)
-            ecgLineChart.getData().add(serie);
+//        chartsContainer.getChildren().clear();
+        for(int i  = 0; i < charts.size(); ++i) {
+            LineChart chart = charts.get(i);
+            chart.getData().clear();
+            ((NumberAxis)chart.getXAxis()).setLowerBound(lowerBound);
+            ((NumberAxis)chart.getXAxis()).setUpperBound(upperBound);
+            chart.getData().add(series.get(i));
+//            chartsContainer.getChildren().add(chart);
+        }
     }
+
+
+
+
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        JFXChartUtil.setupZooming(ecgLineChart);

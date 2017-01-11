@@ -23,6 +23,4 @@ public class LowPassFilter {
         float dt = 1/samplingFrequency;
         return dt/(dt + RC);
     }
-
-
 }

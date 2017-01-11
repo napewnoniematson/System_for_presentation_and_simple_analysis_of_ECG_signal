@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
 <BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ChartPresentationController">
@@ -15,16 +14,18 @@
 
     <center>
         <StackPane stylesheets="@../../../styles/chartStyle.css">
-            <LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" legendSide="BOTTOM" BorderPane.alignment="CENTER"
-                       horizontalGridLinesVisible="false" verticalGridLinesVisible="false">
+            <VBox fx:id="chartsContainer" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+
+            </VBox>
+            <!--<LineChart fx:id="ecgLineChart" animated="false" createSymbols="false" horizontalGridLinesVisible="false" legendSide="BOTTOM" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" verticalGridLinesVisible="false" BorderPane.alignment="CENTER">
                 <xAxis>
-                    <NumberAxis autoRanging="false" side="BOTTOM" fx:id="xAxis" tickLabelRotation="90" tickMarkVisible="false"/>
+                    <NumberAxis autoRanging="false" side="BOTTOM" tickLabelRotation="90" tickMarkVisible="false" fx:id="xAxis" />
                 </xAxis>
                 <yAxis>
-                    <NumberAxis fx:id="yAxis" autoRanging="false" side="LEFT" lowerBound="100" upperBound="230" tickMarkVisible="false" />
+                    <NumberAxis fx:id="yAxis" autoRanging="false" lowerBound="100" side="LEFT" tickMarkVisible="false" upperBound="230" />
                 </yAxis>
-            </LineChart>
-            <Rectangle fx:id="selectedRectangle" fill="dodgerblue" height="0.0" managed="false" mouseTransparent="true" opacity="0.3" stroke="#002966" strokeType="INSIDE" strokeWidth="3.0" width="0.0" x="0.0" y="0.0" BorderPane.alignment="TOP_LEFT" />
+            </LineChart>-->
+            <!--<Rectangle fx:id="selectedRectangle" fill="dodgerblue" height="0.0" managed="false" mouseTransparent="true" opacity="0.3" stroke="#002966" strokeType="INSIDE" strokeWidth="3.0" width="0.0" x="0.0" y="0.0" BorderPane.alignment="TOP_LEFT" />-->
         </StackPane>
 
    </center>

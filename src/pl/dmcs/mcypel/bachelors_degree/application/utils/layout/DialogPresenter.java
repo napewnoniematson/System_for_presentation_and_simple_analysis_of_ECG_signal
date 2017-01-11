@@ -1,8 +1,9 @@
-package pl.dmcs.mcypel.bachelors_degree.application.model;
+package pl.dmcs.mcypel.bachelors_degree.application.utils.layout;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
 
 import java.util.Optional;
 
