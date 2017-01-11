@@ -1,0 +1,11 @@
+.border-pane {
+	-fx-background-color: #263238;
+}
+
+.grid-pane {
+	-fx-background-color: #607d8b;
+}
+
+.label {
+    -fx-text-fill: white;
+}

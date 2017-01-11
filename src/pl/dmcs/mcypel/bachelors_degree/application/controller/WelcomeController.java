@@ -24,7 +24,6 @@ public class WelcomeController implements Initializable {
         viewManager.changeView(startBtn, MAIN_FXML_PATH);
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewManager = new ViewManager();

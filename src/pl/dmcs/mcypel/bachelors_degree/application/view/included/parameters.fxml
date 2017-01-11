@@ -6,12 +6,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null"
+            stylesheets="@../../../styles/dataPresentationStyle.css" styleClass="border-pane">
     <top>
         <Label text="Information about parameters" BorderPane.alignment="CENTER" />
     </top>
     <center>
-        <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+        <GridPane alignment="CENTER" BorderPane.alignment="CENTER" styleClass="grid-pane">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

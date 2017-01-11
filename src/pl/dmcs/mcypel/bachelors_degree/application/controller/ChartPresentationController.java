@@ -44,42 +44,30 @@ public class ChartPresentationController implements Initializable {
     private NumberAxis yAxis;
 
     private ChartSeriesManager seriesManager;
-    private ObservableList<XYChart.Series> series;
 
     public void runManager(ECGSignal ecgSignal, int channels) {
         seriesManager = new ChartSeriesProvider(ecgSignal, channels);
         int startBound = SignalFilter.filter(ecgSignal);
-        series = seriesManager.generateSeries(startBound, startBound + BOUND_DIFFERENCE);
-        insertData(series);
+        insertData(seriesManager.generateSeries(startBound, startBound + BOUND_DIFFERENCE));
     }
 
     @FXML
     private void next() {
-        series = seriesManager.getNextSeries();
-        insertData(series);
+        insertData(seriesManager.getNextSeries());
     }
 
     @FXML
     private void previous() {
-        series = seriesManager.getPreviousSeries();
-        insertData(series);
+        insertData(seriesManager.getPreviousSeries());
     }
 
     @FXML
     private void generate() {
         try{
-            series = seriesManager.generateSeries(getLowerBoundFromTextEdit(), getUpperBoundFromTextEdit());
-            insertData(series);
+            insertData(seriesManager.generateSeries(getLowerBoundFromTextEdit(), getUpperBoundFromTextEdit()));
         }catch (IllegalArgumentException e){
             DialogPresenter.showInfoDialog("Generate info", "Wrong parameter", "Bound must be the natural number");
         }
-    }
-
-    private int getBoundFromTextEdit(TextField textField) {
-        int bound = Integer.parseInt(textField.getText());
-        if (bound < 0)
-            throw new IllegalArgumentException("Bound less than zero");
-        return bound;
     }
 
     private int getLowerBoundFromTextEdit() {
@@ -88,6 +76,13 @@ public class ChartPresentationController implements Initializable {
 
     private int getUpperBoundFromTextEdit() {
         return getBoundFromTextEdit(upperBoundTextField);
+    }
+
+    private int getBoundFromTextEdit(TextField textField) {
+        int bound = Integer.parseInt(textField.getText());
+        if (bound < 0)
+            throw new IllegalArgumentException("Bound less than zero");
+        return bound;
     }
 
     // TODO: 20.12.2016 ogarnac to
