@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import org.gillius.jfxutils.chart.JFXChartUtil;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.Math;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.filter.InputSignalFilter;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.filter.SquareWaveFilter;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.model.SignalFilter;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.ChartSeriesProvider;
@@ -25,7 +28,10 @@ import java.util.ResourceBundle;
  */
 public class ChartPresentationController implements Initializable {
 
+    private final static int LOW_BOUND = 0;
     private final static int BOUND_DIFFERENCE = 300;
+    private final static float LP_FREQ = 5;
+    private final static float HP_FREQ = 15;
 
     @FXML
     private LineChart ecgLineChart;
@@ -43,13 +49,16 @@ public class ChartPresentationController implements Initializable {
     private NumberAxis xAxis;
     @FXML
     private NumberAxis yAxis;
+    private float[][] filteredSignal;
 
     private ChartSeriesManager seriesManager;
 
     public void runManager(ECGSignal ecgSignal, int channels) {
-        seriesManager = new ChartSeriesProvider(ecgSignal, channels);
-        int startBound = SignalFilter.filter(ecgSignal);
-        insertData(seriesManager.generateSeries(startBound, startBound + BOUND_DIFFERENCE));
+        float min = Math.min(ecgSignal.getChannel(0), 1000, 2000);
+        float max = Math.max(ecgSignal.getChannel(0), 1000, 2000);
+        filteredSignal = InputSignalFilter.filterSignals(ecgSignal.getAllData(), ecgSignal.getSamplingFrequency(), LP_FREQ, HP_FREQ, min, max);
+        seriesManager = new ChartSeriesProvider(filteredSignal, channels);
+        insertData(seriesManager.generateSeries(LOW_BOUND, LOW_BOUND + BOUND_DIFFERENCE));
     }
 
     @FXML
@@ -95,6 +104,9 @@ public class ChartPresentationController implements Initializable {
                 get(series.get(0).getData().size() - 1)).getXValue().toString());
         xAxis.setLowerBound(lowerBound);
         xAxis.setUpperBound(upperBound);
+        // TODO: 12.01.2017 przefiltrowac cale i ustawic czy za azdym razem filtrowac
+        yAxis.setLowerBound(Math.min(filteredSignal[0], lowerBound, upperBound) * 1.5);
+        yAxis.setUpperBound(Math.max(filteredSignal[0], lowerBound, upperBound) * 1.5);
         for (XYChart.Series serie : series)
             ecgLineChart.getData().add(serie);
     }

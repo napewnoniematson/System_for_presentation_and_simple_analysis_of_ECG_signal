@@ -1,9 +1,9 @@
 package pl.dmcs.mcypel.bachelors_degree.application.utils.filter;
 
 /**
- * Created by Matson on 06.01.2017.
+ * Created by Matson on 12.01.2017.
  */
-public class LowPassFilter {
+public final class HighPassFilter {
 
     public static float[] filter(float[] inputSignal, float samplingFrequency, float cutoffFrequency) {
 
@@ -14,7 +14,8 @@ public class LowPassFilter {
         output[0] = value;
         for (int i = 1; i < inputSignal.length; ++i) {
             float currentValue = inputSignal[i];
-            value += (currentValue - value) * alpha;
+            float previousValue = inputSignal[i-1];
+            value = (value + currentValue - previousValue) * alpha;
             output[i] = value;
         }
         return output;
@@ -23,6 +24,8 @@ public class LowPassFilter {
     private static float alpha(float samplingFrequency, float cutoffFrequency) {
         float RC = (float) (1/(2* Math.PI * cutoffFrequency));
         float dt = 1/samplingFrequency;
-        return dt/(dt + RC);
+        return RC/(RC + dt);
     }
+
+
 }

@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.manager.ChartSeriesManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.filter.BandPassFilter;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.filter.LowPassFilter;
 
 /**
@@ -11,16 +12,13 @@ import pl.dmcs.mcypel.bachelors_degree.application.utils.filter.LowPassFilter;
  */
 public class ChartSeriesProvider implements ChartSeriesManager {
 
-    private ECGSignal ecgSignal;
-    private ObservableList<XYChart.Series> currentSeries;
     private int lowerBound, upperBound, diff;
     private int channels;
     private float[][] filteredSignals;
 
-    public ChartSeriesProvider(ECGSignal ecgSignal, int channels) {
-        this.ecgSignal = ecgSignal;
+    public ChartSeriesProvider(float[][] ecgSignals, int channels) {
         this.channels = channels;
-        filteredSignals = filterSignals(ecgSignal.getAllData(), ecgSignal.getSamplingFrequency(), 7);
+        filteredSignals = ecgSignals;
     }
 
     @Override
@@ -51,16 +49,19 @@ public class ChartSeriesProvider implements ChartSeriesManager {
         return SeriesGenerator.generate(filteredSignals, lowerBound, upperBound, channels);
     }
 
-    private float[] filterSignal(float[] signal, float samplingFrequency, float cutoffFrequency) {
-        return LowPassFilter.filter(signal, samplingFrequency, cutoffFrequency);
+    private float[] filterSignal(float[] signal, float samplingFrequency,
+                                 float cutoffFrequencyHP, float cutoffFrequencyLP) {
+
+        return BandPassFilter.filter(signal, samplingFrequency, cutoffFrequencyHP, cutoffFrequencyLP);
     }
 
-    private float[][] filterSignals(float[][] signals, float samplingFrequency, float cutoffFrequency){
+    private float[][] filterSignals(float[][] signals,  float samplingFrequency,
+                                    float cutoffFrequencyHP, float cutoffFrequencyLP){
 
         float[][] filteredSignals = new float[signals.length][];
 
         for (int i = 0; i < signals.length; ++i) {
-            filteredSignals[i] = filterSignal(signals[i], samplingFrequency, cutoffFrequency);
+            filteredSignals[i] = filterSignal(signals[i], samplingFrequency, cutoffFrequencyHP, cutoffFrequencyLP);
         }
         return filteredSignals;
     }

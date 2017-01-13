@@ -20,7 +20,7 @@
                     <NumberAxis autoRanging="false" side="BOTTOM" tickLabelRotation="90" tickMarkVisible="false" fx:id="xAxis" />
                 </xAxis>
                 <yAxis>
-                    <NumberAxis fx:id="yAxis" autoRanging="false" lowerBound="100" side="LEFT" tickMarkVisible="false" upperBound="230" />
+                    <NumberAxis fx:id="yAxis" autoRanging="false" lowerBound="-50" side="LEFT" tickMarkVisible="false" upperBound="50" />
                 </yAxis>
             </LineChart>
             <!--<Rectangle fx:id="selectedRectangle" fill="dodgerblue" height="0.0" managed="false" mouseTransparent="true" opacity="0.3" stroke="#002966" strokeType="INSIDE" strokeWidth="3.0" width="0.0" x="0.0" y="0.0" BorderPane.alignment="TOP_LEFT" />-->
