@@ -4,116 +4,67 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import org.gillius.jfxutils.chart.JFXChartUtil;
-import pl.dmcs.mcypel.bachelors_degree.application.utils.Math;
-import pl.dmcs.mcypel.bachelors_degree.application.utils.filter.InputSignalFilter;
-import pl.dmcs.mcypel.bachelors_degree.application.utils.filter.SquareWaveFilter;
-import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.DialogPresenter;
-import pl.dmcs.mcypel.bachelors_degree.application.model.SignalFilter;
-import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.ChartSeriesProvider;
-import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.ChartsCreator;
-import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.manager.ChartSeriesManager;
-import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
+import org.gillius.jfxutils.chart.ChartZoomManager;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Created by Matson on 21.11.2016.
+ * Created by Matson on 18.01.2017.
  */
 public class ChartPresentationController implements Initializable {
 
-    private final static int LOW_BOUND = 0;
-    private final static int BOUND_DIFFERENCE = 300;
-    private final static float LP_FREQ = 5;
-    private final static float HP_FREQ = 15;
 
     @FXML
-    private LineChart ecgLineChart;
+    private StackPane ecgPane, peaksPane;
     @FXML
-    private Button previousButton;
+    private Rectangle ecgRectangle, peaksRectangle;
     @FXML
-    private Button nextButton;
+    private LineChart ecgLineChart, ecgLineChartPeaks;
     @FXML
-    private TextField lowerBoundTextField;
+    private NumberAxis xAxis, xAxisP;
     @FXML
-    private TextField upperBoundTextField;
-    @FXML
-    private Button generateButton;
-    @FXML
-    private NumberAxis xAxis;
-    @FXML
-    private NumberAxis yAxis;
-    private float[][] filteredSignal;
+    private NumberAxis yAxis, yAxisP;
 
-    private ChartSeriesManager seriesManager;
 
-    public void runManager(ECGSignal ecgSignal, int channels) {
-        float min = Math.min(ecgSignal.getChannel(0), 1000, 2000);
-        float max = Math.max(ecgSignal.getChannel(0), 1000, 2000);
-        filteredSignal = InputSignalFilter.filterSignals(ecgSignal.getAllData(), ecgSignal.getSamplingFrequency(), LP_FREQ, HP_FREQ, min, max);
-        seriesManager = new ChartSeriesProvider(filteredSignal, channels);
-        insertData(seriesManager.generateSeries(LOW_BOUND, LOW_BOUND + BOUND_DIFFERENCE));
+
+    public LineChart getEcgLineChart() {
+        return ecgLineChart;
     }
 
-    @FXML
-    private void next() {
-        insertData(seriesManager.getNextSeries());
+    public LineChart getEcgLineChartPeaks() {
+        return ecgLineChartPeaks;
     }
 
-    @FXML
-    private void previous() {
-        insertData(seriesManager.getPreviousSeries());
+    public NumberAxis getxAxis() {
+        return xAxis;
     }
 
-    @FXML
-    private void generate() {
-        try{
-            insertData(seriesManager.generateSeries(getLowerBoundFromTextEdit(), getUpperBoundFromTextEdit()));
-        }catch (IllegalArgumentException e){
-            DialogPresenter.showInfoDialog("Generate info", "Wrong parameter", "Bound must be the natural number");
-        }
+    public NumberAxis getxAxisP() {
+        return xAxisP;
     }
 
-    private int getLowerBoundFromTextEdit() {
-        return getBoundFromTextEdit(lowerBoundTextField);
+    public NumberAxis getyAxis() {
+        return yAxis;
     }
 
-    private int getUpperBoundFromTextEdit() {
-        return getBoundFromTextEdit(upperBoundTextField);
-    }
-
-    private int getBoundFromTextEdit(TextField textField) {
-        int bound = Integer.parseInt(textField.getText());
-        if (bound < 0)
-            throw new IllegalArgumentException("Bound less than zero");
-        return bound;
-    }
-
-    // TODO: 20.12.2016 ogarnac to
-    private void insertData(List<XYChart.Series> series){
-        ecgLineChart.getData().clear();
-        int lowerBound = Integer.parseInt(((XYChart.Data) series.get(0).getData()
-                .get(0)).getXValue().toString());
-        int upperBound = Integer.parseInt(((XYChart.Data) series.get(0).getData().
-                get(series.get(0).getData().size() - 1)).getXValue().toString());
-        xAxis.setLowerBound(lowerBound);
-        xAxis.setUpperBound(upperBound);
-        // TODO: 12.01.2017 przefiltrowac cale i ustawic czy za azdym razem filtrowac
-        yAxis.setLowerBound(Math.min(filteredSignal[0], lowerBound, upperBound) * 1.5);
-        yAxis.setUpperBound(Math.max(filteredSignal[0], lowerBound, upperBound) * 1.5);
-        for (XYChart.Series serie : series)
-            ecgLineChart.getData().add(serie);
+    public NumberAxis getyAxisP() {
+        return yAxisP;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        JFXChartUtil.setupZooming(ecgLineChart);
+        ChartZoomManager ecgZoomManager = new ChartZoomManager(ecgPane, ecgRectangle, ecgLineChart );
+        ecgZoomManager.setZoomAnimated(false);
+        ecgZoomManager.setMouseWheelZoomAllowed(false);
+        ecgZoomManager.start();
+
+        ChartZoomManager peaksZoomManager = new ChartZoomManager(peaksPane, peaksRectangle, ecgLineChartPeaks);
+        peaksZoomManager.setZoomAnimated(false);
+        peaksZoomManager.setMouseWheelZoomAllowed(false);
+        peaksZoomManager.start();
+
     }
 }
-

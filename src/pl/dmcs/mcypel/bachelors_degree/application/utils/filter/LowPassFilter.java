@@ -20,6 +20,23 @@ public class LowPassFilter {
         return output;
     }
 
+    public static float[] LPreverse(float[] inputSignal, float samplingFrequency, float cutoffFrequency){
+
+        float alpha = alpha(samplingFrequency, cutoffFrequency);
+        float value = inputSignal[0];
+        float[] output = new float[inputSignal.length];
+
+        for (int i = inputSignal.length - 1; i > 0 ; --i) {
+            float currentValue = inputSignal[i];
+            value += (currentValue - value) * alpha;
+            output[i] = value;
+        }
+        return output;
+    }
+
+
+
+
     private static float alpha(float samplingFrequency, float cutoffFrequency) {
         float RC = (float) (1/(2* Math.PI * cutoffFrequency));
         float dt = 1/samplingFrequency;

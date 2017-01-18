@@ -5,16 +5,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane stylesheets="@../../../styles/buttonsStyle.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
-   <!--<top>
-      <Label text="System for presentation and simple analysis of ECG signal" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="French Script MT" size="21.0" />
-         </font>
-      </Label>
-   </top>-->
+
    <center>
-      <fx:include fx:id="includedView" source="../included/chart_presentation.fxml" />
+      <fx:include fx:id="includedPresentation" source="../included/chart_presentation.fxml" />
    </center>
    <left>
        <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #123456;" BorderPane.alignment="TOP_CENTER">
@@ -26,12 +22,12 @@
                <!--</children>-->
            <!--</HBox>-->
            <fx:include fx:id="includedExaminationDataView" source="../included/examination_data.fxml" />
-           <!--<fx:include source="../included/parameters.fxml" />-->
-           <!--<ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">-->
-               <!--<image>-->
-                   <!--<Image url="@../../../images/pulse.gif" />-->
-               <!--</image>-->
-           <!--</ImageView>-->
+           <fx:include fx:id="includedView" source="../included/chart_management.fxml" />
+           <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                   <Image url="@../../../images/pulse.gif" />
+               </image>
+           </ImageView>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

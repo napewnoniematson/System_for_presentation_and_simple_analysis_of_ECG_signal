@@ -9,8 +9,11 @@ public final class BandPassFilter {
                                  float cutoffFrequencyHP, float cutoffFrequencyLP) {
 
         return HighPassFilter.filter(
-                LowPassFilter.filter(
-                        inputSignal,
+                LowPassFilter.LPreverse(
+                        LowPassFilter.filter(
+                                inputSignal,
+                                samplingFrequency,
+                                cutoffFrequencyLP),
                         samplingFrequency,
                         cutoffFrequencyLP),
                 samplingFrequency,

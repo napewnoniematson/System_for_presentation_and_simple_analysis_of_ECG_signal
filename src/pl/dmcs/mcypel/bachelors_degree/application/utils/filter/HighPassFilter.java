@@ -26,6 +26,4 @@ public final class HighPassFilter {
         float dt = 1/samplingFrequency;
         return RC/(RC + dt);
     }
-
-
 }

@@ -4,9 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
-import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.ChannelChoiceBoxCreator;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.model.examination.ExaminationData;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.folder.FolderChooser;
@@ -34,15 +32,18 @@ public class MainController implements Initializable{
     private static final String PARAMETERS_FXML_PATH = "../../view/included/parameters.fxml";
 
     @FXML
-    private BorderPane includedView;
+    private BorderPane includedPresentation;
 //    @FXML
 //    private VBox rightVBox;
     private ViewManager viewManager;
     private DataLoadManager loadManager;
     private ImageSaveManager imageRecorder;
     private FolderChooseManager folderChooseManager;
+
     @FXML
-    private ChartPresentationController includedViewController;
+    private ChartPresentationController includedPresentationController;
+    @FXML
+    private ChartManagementController includedViewController;
     @FXML
     private ExaminationDataController includedExaminationDataViewController;
     private ECGSignal ecgSignal;
@@ -55,7 +56,7 @@ public class MainController implements Initializable{
             loadManager = new DataLoader(folderChooseManager);
             ecgSignal = loadManager.loadSignal(); // returns ECGSignal
             examinationData = loadManager.loadExaminationData();
-            includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber());
+            includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber(), includedPresentationController);
             includedExaminationDataViewController.showDataOnView(folderChooseManager.getFolderName(),
                     ecgSignal.getSamplingFrequency(),examinationData);
 //            rightVBox.getChildren().addAll(ChannelChoiceBoxCreator.createCheckBoxMenu(ecgSignal.getChannelsNumber()));
@@ -68,7 +69,7 @@ public class MainController implements Initializable{
     private void save() {
         System.out.println("save");
         try {
-            imageRecorder.save(null, includedView.getCenter());
+            imageRecorder.save(null, includedPresentation.getCenter());
         } catch (IOException e) {
             DialogPresenter.showInfoDialog("Save file", null, "Type file name and click save");
         }
