@@ -25,7 +25,7 @@
            <fx:include fx:id="includedView" source="../included/chart_management.fxml" />
            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                   <Image url="@../../images/pulse.gif" />
+                   <Image url="@../../images/ecg.png" />
                </image>
            </ImageView>
          <opaqueInsets>

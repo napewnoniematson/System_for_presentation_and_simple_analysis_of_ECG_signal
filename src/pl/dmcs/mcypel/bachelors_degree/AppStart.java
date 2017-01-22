@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -19,17 +20,9 @@ public class AppStart extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("application/view/main/main.fxml"));
         primaryStage.setTitle("System for presentation and simple analysis of ECG signal");
-//        primaryStage.setScene(new Scene(root, 500, 150));
+        primaryStage.getIcons().add(new Image("pl/dmcs/mcypel/bachelors_degree/application/images/logo.png"));
         primaryStage.setScene(new Scene(root, 1000, 700));
-
         primaryStage.show();
-
-       /* DirectoryChooser directoryChooser = new DirectoryChooser();
-        File file = directoryChooser.showDialog(null);
-        System.out.println(file.getName());
-        file = directoryChooser.showDialog(null);
-        System.out.println(file.getParent());*/
-
     }
 
 

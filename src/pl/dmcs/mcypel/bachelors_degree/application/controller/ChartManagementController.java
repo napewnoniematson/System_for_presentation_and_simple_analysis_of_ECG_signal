@@ -43,11 +43,9 @@ public class ChartManagementController implements Initializable {
     private final static float HP_FREQ = 15;
 
     @FXML
-    private Button nextButton, previousButton, generateButton;
+    private Button nextButton, previousButton, generateButton, resetZoomEcg, resetZoomPeaks;
     @FXML
-    private TextField lowerBoundTextField;
-    @FXML
-    private TextField upperBoundTextField;
+    private TextField lowerBoundTextField, upperBoundTextField;
 
     private LineChart ecgLineChart, ecgLineChartPeaks;
     private NumberAxis xAxis, xAxisP;
@@ -73,6 +71,7 @@ public class ChartManagementController implements Initializable {
         }
         peaksManager =  new ChartSeriesProvider(peaksSignal, channels);
         insertPeaksData(peaksManager.generateSeries(LOW_BOUND, LOW_BOUND + BOUND_DIFFERENCE));
+        disableButtons(false);
     }
 
     @FXML
@@ -142,6 +141,9 @@ public class ChartManagementController implements Initializable {
             lineChart.getData().add(serie);
     }
 
+
+
+
     private void setAxis(NumberAxis xAxis, NumberAxis yAxis, float minCoefficient, float maxCoefficient, float[][] filteredSignal) {
         xAxis.setLowerBound(lowerBound);
         xAxis.setUpperBound(upperBound);
@@ -157,6 +159,14 @@ public class ChartManagementController implements Initializable {
         xAxisP = chartPresentationController.getxAxisP();
         yAxisP = chartPresentationController.getyAxisP();
         chartPresentationController.runZooming();
+    }
+
+    private void disableButtons(boolean value) {
+        nextButton.setDisable(value);
+        previousButton.setDisable(value);
+        generateButton.setDisable(value);
+        resetZoomEcg.setDisable(value);
+        resetZoomPeaks.setDisable(value);
     }
 
 
