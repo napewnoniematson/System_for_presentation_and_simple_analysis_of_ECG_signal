@@ -1,0 +1,30 @@
+.chart {
+    -fx-outer-border: #b71c1c;
+    -fx-body-color: #212121;
+    -fx-background-color:
+        -fx-outer-border,
+        -fx-body-color;
+    -fx-background-insets: 0.0, 3.0;
+}
+
+.chart-plot-background {
+    -fx-background-color: #212121
+}
+
+.axis {
+    -fx-background-color: #212121;
+}
+
+
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines {
+	-fx-stroke: #d32f2f;
+}
+
+.chart-series-line {
+    -fx-stroke: #b71c1c;
+}
+
+.axis-tick-mark, .axis-minor-tick-mark, .chart-vertical-grid-lines, .chart-horizontal-grid-lines,
+.chart-vertical-zero-line, .chart-horizontal-zero-line  {
+    -fx-stroke: transparent;
+}

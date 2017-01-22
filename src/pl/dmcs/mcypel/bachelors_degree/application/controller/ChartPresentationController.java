@@ -54,8 +54,7 @@ public class ChartPresentationController implements Initializable {
         return yAxisP;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void runZooming() {
         ChartZoomManager ecgZoomManager = new ChartZoomManager(ecgPane, ecgRectangle, ecgLineChart );
         ecgZoomManager.setZoomAnimated(false);
         ecgZoomManager.setMouseWheelZoomAllowed(false);
@@ -65,6 +64,11 @@ public class ChartPresentationController implements Initializable {
         peaksZoomManager.setZoomAnimated(false);
         peaksZoomManager.setMouseWheelZoomAllowed(false);
         peaksZoomManager.start();
+    }
 
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
     }
 }

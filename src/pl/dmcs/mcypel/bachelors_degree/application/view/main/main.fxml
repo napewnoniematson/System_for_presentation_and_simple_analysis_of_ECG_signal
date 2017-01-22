@@ -7,13 +7,13 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<BorderPane stylesheets="@../../../styles/buttonsStyle.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
+<BorderPane stylesheets="@../../styles/backgroundStyle.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.MainController">
 
    <center>
       <fx:include fx:id="includedPresentation" source="../included/chart_presentation.fxml" />
    </center>
    <left>
-       <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #123456;" BorderPane.alignment="TOP_CENTER">
+       <VBox alignment="TOP_CENTER" spacing="10.0" BorderPane.alignment="TOP_CENTER"  stylesheets="@../../styles/buttonsStyle.css">
            <!--<HBox alignment="CENTER" spacing="15.0">-->
                <!--<children>-->
                    <Button fx:id="loadButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#load" styleClass="menuButton" text="Load" />
@@ -25,7 +25,7 @@
            <fx:include fx:id="includedView" source="../included/chart_management.fxml" />
            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                   <Image url="@../../../images/pulse.gif" />
+                   <Image url="@../../images/pulse.gif" />
                </image>
            </ImageView>
          <opaqueInsets>

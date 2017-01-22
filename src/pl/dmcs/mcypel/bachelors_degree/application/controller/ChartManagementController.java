@@ -156,6 +156,7 @@ public class ChartManagementController implements Initializable {
         yAxis = chartPresentationController.getyAxis();
         xAxisP = chartPresentationController.getxAxisP();
         yAxisP = chartPresentationController.getyAxisP();
+        chartPresentationController.runZooming();
     }
 
 
