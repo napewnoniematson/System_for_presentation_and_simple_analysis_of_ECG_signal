@@ -2,12 +2,17 @@ package pl.dmcs.mcypel.bachelors_degree.application.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.examination.ExaminationData;
 
 /**
  * Created by Matson on 08.01.2017.
  */
 public class ExaminationDataController {
+
+    @FXML
+    private BorderPane examinationPane;
 
     @FXML
     private Label namePatientLbl,surnamePatientLbl, examinationDateLbl, examinationTimeLbl,
@@ -21,6 +26,11 @@ public class ExaminationDataController {
         examinationDateLbl.setText(getExaminationDate(examinationData));
         examinationTimeLbl.setText(getExaminationTime(examinationData));
     }
+
+    public BorderPane getExaminationPane() {
+        return examinationPane;
+    }
+
     private String getPatientName(ExaminationData examinationData) {
         return examinationData.getPatientPersonalData().getName();
     }

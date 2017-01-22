@@ -3,6 +3,7 @@ package pl.dmcs.mcypel.bachelors_degree.application.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.DialogPresenter;
@@ -31,10 +32,6 @@ public class MainController implements Initializable{
     private static final String PATIENT_DATA_FXML_PATH = "../../view/included/examination_data.fxml";
     private static final String PARAMETERS_FXML_PATH = "../../view/included/parameters.fxml";
 
-    @FXML
-    private BorderPane includedPresentation;
-//    @FXML
-//    private VBox rightVBox;
     private ViewManager viewManager;
     private DataLoadManager loadManager;
     private ImageSaveManager imageRecorder;
@@ -59,33 +56,43 @@ public class MainController implements Initializable{
             includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber(), includedPresentationController);
             includedExaminationDataViewController.showDataOnView(folderChooseManager.getFolderName(),
                     ecgSignal.getSamplingFrequency(),examinationData);
-//            rightVBox.getChildren().addAll(ChannelChoiceBoxCreator.createCheckBoxMenu(ecgSignal.getChannelsNumber()));
         } catch (IOException e) {
-            DialogPresenter.showInfoDialog("Open file", null, "To see ECG signal you need to choose path to right folder");
+            DialogPresenter.showInfoDialog("Open file", "To see ECG signal you need to choose path to right folder");
         }
     }
 
     @FXML
     private void save() {
-        System.out.println("save");
         try {
-            imageRecorder.save(null, includedPresentation.getCenter());
+            ChoiceConfiguration configuration = DialogPresenter.showChoiceDialog(DialogPresenter.ConfigurationTitle.SAVE);
+            if (configuration != null){
+                System.out.println(configuration);
+                imageRecorder.save(null, selectNode(configuration));
+            }
+
         } catch (IOException e) {
-            DialogPresenter.showInfoDialog("Save file", null, "Type file name and click save");
+            DialogPresenter.showInfoDialog("Save file", "Type file name and click save");
         }
 
     }
 
     @FXML
     private void print() {
-
-        ChoiceConfiguration configuration = DialogPresenter.showChoiceDialog(DialogPresenter.ConfigurationTitle.PRINT);
-        System.out.println("Chart " + configuration.isChartSelected()
-                + " exData: " + configuration.isExDataSelected()
-                + " params: " + configuration.isParamsSelected());
-        System.out.println("print");
+//        ChoiceConfiguration configuration = DialogPresenter.showChoiceDialog(DialogPresenter.ConfigurationTitle.PRINT);
+//        System.out.println("Chart " + configuration.isChartSelected()
+//                + " exData: " + configuration.isExDataSelected()
+//                + " peaks: " + configuration.isPeaksSelected());
     }
 
+    private Node selectNode(ChoiceConfiguration configuration) {
+        if (configuration.isChartSelected())
+            return includedPresentationController.getEcgLineChart();
+        if (configuration.isPeaksSelected())
+            return includedPresentationController.getEcgLineChartPeaks();
+        if (configuration.isExDataSelected())
+            return includedExaminationDataViewController.getExaminationPane();
+        return null;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

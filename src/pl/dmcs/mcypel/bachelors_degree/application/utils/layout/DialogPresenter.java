@@ -1,10 +1,14 @@
 package pl.dmcs.mcypel.bachelors_degree.application.utils.layout;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import pl.dmcs.mcypel.bachelors_degree.application.model.ChoiceConfiguration;
 
+import java.net.URL;
 import java.util.Optional;
 
 /**
@@ -12,11 +16,16 @@ import java.util.Optional;
  */
 public final class DialogPresenter {
 
-    public static void showInfoDialog(String title, String header, String content){
+    public static void showInfoDialog(String title, String content){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
-        alert.setHeaderText(header);
+        alert.setHeaderText(null);
         alert.setContentText(content);
+        ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("pl/dmcs/mcypel/bachelors_degree/application/images/logo.png"));
+        alert.getDialogPane().getStylesheets().addAll("pl/dmcs/mcypel/bachelors_degree/application/styles/chartManagementStyle.css",
+                "pl/dmcs/mcypel/bachelors_degree/application/styles/buttonsStyle.css");
+        alert.getDialogPane().setBackground(new Background(new BackgroundImage(new Image("pl/dmcs/mcypel/bachelors_degree/application/images/background_black_red.png"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         alert.showAndWait();
     }
 
@@ -24,20 +33,37 @@ public final class DialogPresenter {
         Dialog<ChoiceConfiguration> dialog = new Dialog();
         VBox vBox = new VBox();
 
+        BooleanProperty isChartButtonSelectedProperty = new SimpleBooleanProperty();
+        BooleanProperty isPeaksButtonSelectedProperty = new SimpleBooleanProperty();
+        BooleanProperty isExDataButtonSelectedProperty = new SimpleBooleanProperty();
+
+        ((Stage)dialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("pl/dmcs/mcypel/bachelors_degree/application/images/logo.png"));
+        dialog.getDialogPane().setBackground(new Background(new BackgroundImage(new Image("pl/dmcs/mcypel/bachelors_degree/application/images/background_black_red.png"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        dialog.getDialogPane().getStylesheets().add("pl/dmcs/mcypel/bachelors_degree/application/styles/buttonsStyle.css");
         ButtonType okButton = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        CheckBox chartCheckBox = new CheckBox("Chart");
-        CheckBox exDataCheckBox = new CheckBox("Examination data");
-        CheckBox paramCheckBox = new CheckBox("Parameters");
-
+        ToggleGroup group = new ToggleGroup();
+        ToggleButton chartCheckBox = new ToggleButton("Chart");
+        chartCheckBox.setToggleGroup(group);
+        chartCheckBox.setMaxSize(1.7976931348623157E308, 1.7976931348623157E308);
+        setListener(chartCheckBox, isChartButtonSelectedProperty);
         vBox.getChildren().add(chartCheckBox);
+
+        ToggleButton peaksCheckBox = new ToggleButton("Peaks");
+        peaksCheckBox.setToggleGroup(group);
+        peaksCheckBox.setMaxSize(1.7976931348623157E308, 1.7976931348623157E308);
+        setListener(peaksCheckBox, isPeaksButtonSelectedProperty);
+        vBox.getChildren().add(peaksCheckBox);
+
+        ToggleButton exDataCheckBox = new ToggleButton("Examination data");
+        exDataCheckBox.setToggleGroup(group);
+        exDataCheckBox.setMaxSize(1.7976931348623157E308, 1.7976931348623157E308);
+        setListener(exDataCheckBox, isExDataButtonSelectedProperty);
         vBox.getChildren().add(exDataCheckBox);
-        vBox.getChildren().add(paramCheckBox);
 
-        dialog.setTitle(title.toString() + " CONFIGURATION");
-        dialog.setHeaderText("Choose configuration for " + title.toString().toLowerCase());
-
+        dialog.setTitle("Choose configuration for " + title.toString().toLowerCase());
         dialog.getDialogPane().setContent(vBox);
         dialog.getDialogPane().getButtonTypes().add(okButton);
         dialog.getDialogPane().getButtonTypes().add(cancelButton);
@@ -45,11 +71,14 @@ public final class DialogPresenter {
         dialog.setResultConverter(buttonType -> {
             System.out.println(buttonType.toString());
             if (buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE )
-                return new ChoiceConfiguration(
-                        chartCheckBox.isSelected(),
-                        exDataCheckBox.isSelected(),
-                        paramCheckBox.isSelected()
+                    if (isChartButtonSelectedProperty.get() || isPeaksButtonSelectedProperty.get() || isExDataButtonSelectedProperty.get())
+                        return new ChoiceConfiguration(
+                                isChartButtonSelectedProperty.get(),
+                                isPeaksButtonSelectedProperty.get(),
+                                isExDataButtonSelectedProperty.get()
                 );
+                    else
+                        return null;
             else
                 return null;
         });
@@ -64,4 +93,12 @@ public final class DialogPresenter {
     public enum ConfigurationTitle {
         SAVE, PRINT
     }
+
+    private static void setListener(ToggleButton button, BooleanProperty isSelectedProperty) {
+        button.selectedProperty().addListener(listener ->{
+                isSelectedProperty.bind(button.selectedProperty());
+        });
+    }
+
+
 }

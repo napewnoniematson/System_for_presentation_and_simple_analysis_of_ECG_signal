@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="border-pane" stylesheets="@../../styles/dataPresentationStyle.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ExaminationDataController">
+<BorderPane fx:id="examinationPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="border-pane" stylesheets="@../../styles/dataPresentationStyle.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ExaminationDataController">
    <top>
       <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Information about examination" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </top>
@@ -25,17 +25,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-             <Label text="Folder name" alignment="CENTER"  GridPane.halignment="CENTER" />
+             <Label alignment="CENTER" text=" Folder name" GridPane.halignment="LEFT" />
              <Label fx:id="folderNameLbl" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-             <Label text="Sampling frequency" GridPane.rowIndex="1" GridPane.halignment="CENTER"/>
-             <Label fx:id="frequencyLbl" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="CENTER" />
-             <Label text="Patient's name:"  GridPane.rowIndex="2" GridPane.halignment="CENTER"/>
-             <Label fx:id="namePatientLbl" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.halignment="CENTER" />
-             <Label text="Patient's surname"  GridPane.rowIndex="3" GridPane.halignment="CENTER"/>
-             <Label fx:id="surnamePatientLbl" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.halignment="CENTER" />
-             <Label text="Examination's date"  GridPane.rowIndex="4" GridPane.halignment="CENTER"/>
-             <Label fx:id="examinationDateLbl" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.halignment="CENTER" />
-             <Label fx:id="examinationTimeLbl" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.halignment="CENTER"  />
+             <Label text=" Sampling freq." GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+             <Label fx:id="frequencyLbl" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+             <Label text=" Patient name" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+             <Label fx:id="namePatientLbl" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+             <Label text=" Patient surname" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+             <Label fx:id="surnamePatientLbl" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+             <Label text=" Date" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+             <Label fx:id="examinationDateLbl" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+             <Label fx:id="examinationTimeLbl" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </center>

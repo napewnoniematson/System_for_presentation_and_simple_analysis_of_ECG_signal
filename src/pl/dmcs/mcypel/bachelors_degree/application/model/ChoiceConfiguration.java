@@ -7,12 +7,12 @@ public class ChoiceConfiguration {
 
     private boolean isChartSelected;
     private boolean isExDataSelected;
-    private boolean isParamsSelected;
+    private boolean isPeaksSelected;
 
-    public ChoiceConfiguration(boolean isChartSelected, boolean isExDataSelected, boolean isParamsSelected) {
+    public ChoiceConfiguration(boolean isChartSelected, boolean isPeaksSelected, boolean isExDataSelected) {
         this.isChartSelected = isChartSelected;
         this.isExDataSelected = isExDataSelected;
-        this.isParamsSelected = isParamsSelected;
+        this.isPeaksSelected = isPeaksSelected;
     }
 
     public boolean isChartSelected() {
@@ -23,7 +23,7 @@ public class ChoiceConfiguration {
         return isExDataSelected;
     }
 
-    public boolean isParamsSelected() {
-        return isParamsSelected;
+    public boolean isPeaksSelected() {
+        return isPeaksSelected;
     }
 }

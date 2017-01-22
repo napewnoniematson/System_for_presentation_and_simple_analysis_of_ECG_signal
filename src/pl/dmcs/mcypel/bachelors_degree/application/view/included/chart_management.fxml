@@ -6,9 +6,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ChartManagementController"
-          stylesheets="@../../styles/chartManagementStyle.css">
+<?import javafx.scene.layout.Pane?>
+<GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../../styles/chartManagementStyle.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.dmcs.mcypel.bachelors_degree.application.controller.ChartManagementController">
         <columnConstraints>
           <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="10.0" />
@@ -22,16 +23,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
       <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
                  <Label text="Lower value" textAlignment="CENTER" />
                  <TextField fx:id="lowerBoundTextField" alignment="CENTER" GridPane.columnIndex="2" />
                  <TextField fx:id="upperBoundTextField" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <Button fx:id="generateButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#generate" styleClass="menuButton" text="Generate" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.rowIndex="2"  disable="true"/>
+                <Button fx:id="generateButton" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#generate" styleClass="menuButton" text="Generate" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.rowIndex="2" />
                  <Label text="Upper value" textAlignment="CENTER" GridPane.rowIndex="1" />
-                <Button fx:id="resetZoomPeaks" disable="true" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#resetZoomPeaks" styleClass="menuButton" text="reset zoom peaks" GridPane.rowIndex="4" />
-                <Button fx:id="resetZoomEcg" disable="true" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#resetZoomECG" prefWidth="192.0" styleClass="menuButton" text="reset zoom ecg" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                <Button fx:id="previousButton" disable="true" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#previous" styleClass="slideButton" text="Previous samples" GridPane.rowIndex="6" />
-                <Button fx:id="nextButton" disable="true" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#next" styleClass="slideButton" text="Next samples" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                <Button fx:id="resetZoomPeaks" alignment="CENTER" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#resetZoomPeaks" styleClass="menuButton" text="reset zoom peaks" GridPane.rowIndex="4" />
+                <Button fx:id="resetZoomEcg" alignment="CENTER" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#resetZoomECG" prefWidth="192.0" styleClass="menuButton" text="reset zoom ecg" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <Button fx:id="previousButton" alignment="CENTER" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#previous" styleClass="slideButton" text="Previous" GridPane.rowIndex="6" />
+                <Button fx:id="nextButton" alignment="CENTER" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#next" styleClass="slideButton" text="Next" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Pane fx:id="togglePane" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3" GridPane.rowIndex="8" />
          </children>
 </GridPane>

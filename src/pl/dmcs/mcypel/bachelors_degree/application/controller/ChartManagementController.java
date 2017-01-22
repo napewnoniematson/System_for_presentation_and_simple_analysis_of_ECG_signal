@@ -13,12 +13,15 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import org.gillius.jfxutils.chart.ChartZoomManager;
 import org.gillius.jfxutils.chart.JFXChartUtil;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.Math;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.filter.InputSignalFilter;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.ChannelChoiceBoxCreator;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.ChartSeriesProvider;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.manager.ChartSeriesManager;
@@ -47,6 +50,9 @@ public class ChartManagementController implements Initializable {
     private final static float HP_FREQ = 15;
 
     @FXML
+    private Pane togglePane;
+
+    @FXML
     private Button nextButton, previousButton, generateButton, resetZoomEcg, resetZoomPeaks;
     @FXML
     private TextField lowerBoundTextField, upperBoundTextField;
@@ -61,19 +67,19 @@ public class ChartManagementController implements Initializable {
     private IntegerProperty upperBoundProperty = new SimpleIntegerProperty();
     private IntegerProperty endBoundPoperty = new SimpleIntegerProperty();
     private IntegerProperty diffProperty = new SimpleIntegerProperty();
+    private IntegerProperty currentChannel = new SimpleIntegerProperty();
     private float[][] filteredSignal, peaksSignal;
 
     private ChartSeriesManager seriesManager, peaksManager;
 
     public void runManager(ECGSignal ecgSignal, int channels, ChartPresentationController chartPresentationController) {
         initChartElements(chartPresentationController);
+        initChannelMenu(channels);
         float min = Math.min(ecgSignal.getChannel(0), 1000, 2000);
         float max = Math.max(ecgSignal.getChannel(0), 1000, 2000);
         filteredSignal = InputSignalFilter.filterSignals(ecgSignal.getAllData(), ecgSignal.getSamplingFrequency(), LP_FREQ, HP_FREQ, min, max);
         seriesManager = new ChartSeriesProvider(filteredSignal, channels);
-
         disablePreviousBinding = disableNextBinding = diffProperty.greaterThan(diffProperty);
-
         peaksSignal = new float[channels][];
         for (int i = 0 ; i < channels; ++i) {
             float[] xd = Integral.integration(Power.power(Derivative.differentation(filteredSignal[i])));
@@ -102,10 +108,16 @@ public class ChartManagementController implements Initializable {
     @FXML
     private void generate() {
         try{
-            insertNormalData(seriesManager.generateSeries(getLowerBoundFromTextEdit(), getUpperBoundFromTextEdit()));
-            insertPeaksData(peaksManager.generateSeries(getLowerBoundFromTextEdit(), getUpperBoundFromTextEdit()));
+            int lower = getLowerBoundFromTextEdit();
+            int upper = getUpperBoundFromTextEdit();
+            if(lower == upper)
+                throw new IllegalArgumentException();
+
+            insertNormalData(seriesManager.generateSeries(lower, upper));
+            insertPeaksData(peaksManager.generateSeries(lower, upper));
         }catch (IllegalArgumentException e){
-            DialogPresenter.showInfoDialog("Generate info", "Wrong parameter", "Bound must be the natural number");
+            DialogPresenter.showInfoDialog("Generate info",
+                    "Bound must be the number higher then zero and less then number of samples");
         }
     }
 
@@ -129,8 +141,8 @@ public class ChartManagementController implements Initializable {
 
     private int getBoundFromTextEdit(TextField textField) {
         int bound = Integer.parseInt(textField.getText());
-        if (bound < 0)
-            throw new IllegalArgumentException("Bound less than zero");
+        if (bound < 0 || bound > peaksSignal[0].length - 1)
+            throw new IllegalArgumentException("Bound less than zero or higher than number of samples");
         return bound;
     }
     private void insertNormalData(List<XYChart.Series> series) {
@@ -151,9 +163,9 @@ public class ChartManagementController implements Initializable {
                 get(series.get(0).getData().size() - 1)).getXValue().toString()));
         diffProperty.set(upperBoundProperty.get() - lowerBoundProperty.get());
         setAxis(xAxis, yAxis, minCoefficient, maxCoefficient, filteredSignal);
-        for (XYChart.Series serie : series)
-            lineChart.getData().add(serie);
-
+//        for (XYChart.Series serie : series)
+//            lineChart.getData().add(serie);
+        lineChart.getData().add(series.get(currentChannel.get()));
         endBoundPoperty.setValue(peaksSignal[0].length - 1 - upperBoundProperty.get());
     }
 
@@ -177,7 +189,15 @@ public class ChartManagementController implements Initializable {
         chartPresentationController.runZooming();
     }
 
+    private void initChannelMenu (int channels) {
+        currentChannel.set(0);
+        togglePane.getChildren().clear();
+        togglePane.getChildren().add(ChannelChoiceBoxCreator.createChannelChooseMenu(currentChannel,channels));
+    }
+
     private void disableButtons(boolean value) {
+        nextButton.disableProperty().unbind();
+        previousButton.disableProperty().unbind();
         nextButton.setDisable(value);
         previousButton.setDisable(value);
         generateButton.setDisable(value);

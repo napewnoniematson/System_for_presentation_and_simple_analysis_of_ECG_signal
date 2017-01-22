@@ -19,7 +19,7 @@ public class DataLoader implements DataLoadManager {
     private FolderChooseManager folderChooseManager;
     private ElectrocardiographLoadManager electrocardiographLoader;
 
-    public DataLoader(FolderChooseManager folderChooseManager){
+    public DataLoader(FolderChooseManager folderChooseManager) throws IOException {
         this.folderChooseManager = folderChooseManager;
         electrocardiographLoader = getElectrocartiographLoader();
 
@@ -49,14 +49,13 @@ public class DataLoader implements DataLoadManager {
         // TODO: 20.12.2016 jakies zabezpieczenia tak jak w load signal??
     }
 
-    private ElectrocardiographLoadManager getElectrocartiographLoader() {
+    private ElectrocardiographLoadManager getElectrocartiographLoader() throws IOException{
         String folderName = folderChooseManager.getFolderName();
         if (isCardioScan(folderName))
             return new CardioscanLoader();
         if (isReynolds(folderName))
             return new ReynoldsLoader();
-
-        return null;
+        throw new IOException("Wrong folder choosen");
     }
 
     private boolean isCardioScan(String folderName){
