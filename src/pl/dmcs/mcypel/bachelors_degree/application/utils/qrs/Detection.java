@@ -7,8 +7,8 @@ import pl.dmcs.mcypel.bachelors_degree.application.utils.Math;
  */
 public class Detection {
 
-    private static final float HIGH = 170;
-    private static final float LOW = 110;
+    private static final float HIGH = 1;
+    private static final float LOW = 0;
 
     public static float normalize (float[] inputSignal, int start) {
         return Math.max(inputSignal, start, start + 500) * 0.2f;

@@ -1,6 +1,10 @@
 package pl.dmcs.mcypel.bachelors_degree.application.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.beans.Observable;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,7 +55,12 @@ public class ChartManagementController implements Initializable {
     private NumberAxis xAxis, xAxisP;
     private NumberAxis yAxis, yAxisP;
 
-    private int lowerBound, upperBound;
+//    private int lowerBound, upperBound;
+    private BooleanBinding disablePreviousBinding, disableNextBinding;
+    private IntegerProperty lowerBoundProperty = new SimpleIntegerProperty();
+    private IntegerProperty upperBoundProperty = new SimpleIntegerProperty();
+    private IntegerProperty endBoundPoperty = new SimpleIntegerProperty();
+    private IntegerProperty diffProperty = new SimpleIntegerProperty();
     private float[][] filteredSignal, peaksSignal;
 
     private ChartSeriesManager seriesManager, peaksManager;
@@ -62,7 +71,8 @@ public class ChartManagementController implements Initializable {
         float max = Math.max(ecgSignal.getChannel(0), 1000, 2000);
         filteredSignal = InputSignalFilter.filterSignals(ecgSignal.getAllData(), ecgSignal.getSamplingFrequency(), LP_FREQ, HP_FREQ, min, max);
         seriesManager = new ChartSeriesProvider(filteredSignal, channels);
-        insertNormalData(seriesManager.generateSeries(LOW_BOUND, LOW_BOUND + BOUND_DIFFERENCE));
+
+        disablePreviousBinding = disableNextBinding = diffProperty.greaterThan(diffProperty);
 
         peaksSignal = new float[channels][];
         for (int i = 0 ; i < channels; ++i) {
@@ -70,8 +80,11 @@ public class ChartManagementController implements Initializable {
             peaksSignal[i] = Detection.peaks(Detection.detection(xd));
         }
         peaksManager =  new ChartSeriesProvider(peaksSignal, channels);
+
+        insertNormalData(seriesManager.generateSeries(LOW_BOUND, LOW_BOUND + BOUND_DIFFERENCE));
         insertPeaksData(peaksManager.generateSeries(LOW_BOUND, LOW_BOUND + BOUND_DIFFERENCE));
         disableButtons(false);
+        bind();
     }
 
     @FXML
@@ -132,23 +145,26 @@ public class ChartManagementController implements Initializable {
     private void insertData(LineChart lineChart, NumberAxis xAxis, NumberAxis yAxis, List<XYChart.Series> series,
                             float[][] filteredSignal, float minCoefficient, float maxCoefficient){
         lineChart.getData().clear();
-        lowerBound = Integer.parseInt(((XYChart.Data) series.get(0).getData()
-                .get(0)).getXValue().toString());
-        upperBound = Integer.parseInt(((XYChart.Data) series.get(0).getData().
-                get(series.get(0).getData().size() - 1)).getXValue().toString());
+        lowerBoundProperty.set(Integer.parseInt(((XYChart.Data) series.get(0).getData()
+                .get(0)).getXValue().toString()));
+        upperBoundProperty.set(Integer.parseInt(((XYChart.Data) series.get(0).getData().
+                get(series.get(0).getData().size() - 1)).getXValue().toString()));
+        diffProperty.set(upperBoundProperty.get() - lowerBoundProperty.get());
         setAxis(xAxis, yAxis, minCoefficient, maxCoefficient, filteredSignal);
         for (XYChart.Series serie : series)
             lineChart.getData().add(serie);
+
+        endBoundPoperty.setValue(peaksSignal[0].length - 1 - upperBoundProperty.get());
     }
 
 
 
 
     private void setAxis(NumberAxis xAxis, NumberAxis yAxis, float minCoefficient, float maxCoefficient, float[][] filteredSignal) {
-        xAxis.setLowerBound(lowerBound);
-        xAxis.setUpperBound(upperBound);
-        yAxis.setLowerBound(Math.min(filteredSignal[0], lowerBound, upperBound) * minCoefficient);
-        yAxis.setUpperBound(Math.max(filteredSignal[0], lowerBound, upperBound) * maxCoefficient);
+        xAxis.setLowerBound(lowerBoundProperty.get());
+        xAxis.setUpperBound(upperBoundProperty.get());
+        yAxis.setLowerBound(Math.min(filteredSignal[0], lowerBoundProperty.get(), upperBoundProperty.get()) * minCoefficient);
+        yAxis.setUpperBound(Math.max(filteredSignal[0], lowerBoundProperty.get(), upperBoundProperty.get()) * maxCoefficient);
     }
 
     private void initChartElements(ChartPresentationController chartPresentationController) {
@@ -169,7 +185,12 @@ public class ChartManagementController implements Initializable {
         resetZoomPeaks.setDisable(value);
     }
 
-
+    private void bind() {
+        disablePreviousBinding = diffProperty.greaterThan(lowerBoundProperty);
+        disableNextBinding = diffProperty.greaterThan(endBoundPoperty);
+        previousButton.disableProperty().bind(disablePreviousBinding);
+        nextButton.disableProperty().bind(disableNextBinding);
+    }
 
 
     @Override
