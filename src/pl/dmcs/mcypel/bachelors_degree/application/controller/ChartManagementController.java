@@ -153,7 +153,6 @@ public class ChartManagementController implements Initializable {
         insertData(ecgLineChartPeaks, xAxisP, yAxisP, series, peaksSignal, MIN_COEFF_PEAKS, MAX_COEFF_PEAKS);
     }
 
-    // TODO: 20.12.2016 ogarnac to
     private void insertData(LineChart lineChart, NumberAxis xAxis, NumberAxis yAxis, List<XYChart.Series> series,
                             float[][] filteredSignal, float minCoefficient, float maxCoefficient){
         lineChart.getData().clear();

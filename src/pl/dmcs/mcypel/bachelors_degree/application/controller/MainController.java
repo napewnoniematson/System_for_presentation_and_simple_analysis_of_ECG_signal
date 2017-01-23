@@ -12,10 +12,10 @@ import pl.dmcs.mcypel.bachelors_degree.application.utils.folder.FolderChooser;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.load.DataLoader;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.folder.manager.FolderChooseManager;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.load.manager.DataLoadManager;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.print.DataPrinter;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.save.ImageRecorder;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.save.manager.ImageSaveManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
-import pl.dmcs.mcypel.bachelors_degree.application.model.manager.ViewManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,15 +26,13 @@ import java.util.ResourceBundle;
  */
 public class MainController implements Initializable{
 
-    // TODO: 24.11.2016 bindowanie + propertasy do wyswietlania danych pacjenta ??
-
     private static final String CHART_PRESENTATION_FXML_PATH = "../../view/included/chart_presentation.fxml";
     private static final String PATIENT_DATA_FXML_PATH = "../../view/included/examination_data.fxml";
     private static final String PARAMETERS_FXML_PATH = "../../view/included/parameters.fxml";
 
-    private ViewManager viewManager;
     private DataLoadManager loadManager;
     private ImageSaveManager imageRecorder;
+    private DataPrinter dataPrinter;
     private FolderChooseManager folderChooseManager;
 
     @FXML
@@ -66,10 +64,8 @@ public class MainController implements Initializable{
         try {
             ChoiceConfiguration configuration = DialogPresenter.showChoiceDialog(DialogPresenter.ConfigurationTitle.SAVE);
             if (configuration != null){
-                System.out.println(configuration);
                 imageRecorder.save(null, selectNode(configuration));
             }
-
         } catch (IOException e) {
             DialogPresenter.showInfoDialog("Save file", "Type file name and click save");
         }
@@ -78,10 +74,10 @@ public class MainController implements Initializable{
 
     @FXML
     private void print() {
-//        ChoiceConfiguration configuration = DialogPresenter.showChoiceDialog(DialogPresenter.ConfigurationTitle.PRINT);
-//        System.out.println("Chart " + configuration.isChartSelected()
-//                + " exData: " + configuration.isExDataSelected()
-//                + " peaks: " + configuration.isPeaksSelected());
+        ChoiceConfiguration configuration = DialogPresenter.showChoiceDialog(DialogPresenter.ConfigurationTitle.PRINT);
+        if (configuration != null){
+            dataPrinter.print(null, selectNode(configuration));
+        }
     }
 
     private Node selectNode(ChoiceConfiguration configuration) {
@@ -96,8 +92,8 @@ public class MainController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        viewManager = new ViewManager();
         folderChooseManager = new FolderChooser();
         imageRecorder = new ImageRecorder();
+        dataPrinter = new DataPrinter();
     }
 }

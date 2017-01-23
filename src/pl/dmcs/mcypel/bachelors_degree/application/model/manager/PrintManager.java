@@ -14,8 +14,6 @@ import java.util.List;
  */
 public class PrintManager {
 
-    // TODO: 24.11.2016 drukowanie w nowym wątku
-
     private Printer printer; //potrzebne w ogole?
     private PrinterJob job; //create job gdzies
 
@@ -26,16 +24,6 @@ public class PrintManager {
 
     public PrintManager (Printer printer){
         this.printer = printer;
-    }
-
-    //w zaleznosci od checkboxow beda rozne vboxy?
-    public Node preparePrintingNode (List<Node> nodes) {
-        //Vbox albo jakis panel
-        VBox box = new VBox();
-        for (Node node : nodes) {
-            box.getChildren().add(node);
-        }
-        return box;
     }
 
     private void preparePage(Window window) {

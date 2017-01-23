@@ -9,7 +9,6 @@ import java.io.IOException;
 //import pl.dmcs.med38.impl.abstr.AbstractSignal;
 //import pl.dmcs.med38.impl.signals.duration.Duration;
 
-// TODO: 20.11.2016 przeniesc do pakietu .signal ???
 //@Component
 public class ECGSignal /*extends AbstractSignal*/ {
 

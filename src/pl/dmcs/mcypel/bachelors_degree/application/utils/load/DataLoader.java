@@ -24,7 +24,6 @@ public class DataLoader implements DataLoadManager {
         electrocardiographLoader = getElectrocartiographLoader();
 
     }
-    // TODO: 24.11.2016 wczytywanie danych w nowym watku -- tu tez?
 
     @Override
     public ECGSignal loadSignal() throws IOException {
@@ -46,7 +45,6 @@ public class DataLoader implements DataLoadManager {
         DateTime examinationDate = electrocardiographLoader.loadExaminationDate(path);
         Duration examinationDuration = electrocardiographLoader.loadExaminationDuration(path, examinationDate,channels);
         return new ExaminationData(patientData, examinationDate, examinationDuration);
-        // TODO: 20.12.2016 jakies zabezpieczenia tak jak w load signal??
     }
 
     private ElectrocardiographLoadManager getElectrocartiographLoader() throws IOException{
