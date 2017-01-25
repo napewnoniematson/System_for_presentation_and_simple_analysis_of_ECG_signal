@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Matson on 21.11.2016.
  */
-public class ChartManagementController implements Initializable {
+public class ChartManagementController{
 
     private final static float MIN_COEFF_ECG = 1.5f;
     private final static float MAX_COEFF_ECG = 1.5f;
@@ -209,11 +209,6 @@ public class ChartManagementController implements Initializable {
         disableNextBinding = diffProperty.greaterThan(endBoundPoperty);
         previousButton.disableProperty().bind(disablePreviousBinding);
         nextButton.disableProperty().bind(disableNextBinding);
-    }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
     }
 }
 

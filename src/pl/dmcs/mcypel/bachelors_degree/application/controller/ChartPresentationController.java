@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Matson on 18.01.2017.
  */
-public class ChartPresentationController implements Initializable {
+public class ChartPresentationController {
 
 
     @FXML
@@ -64,11 +64,5 @@ public class ChartPresentationController implements Initializable {
         peaksZoomManager.setZoomAnimated(false);
         peaksZoomManager.setMouseWheelZoomAllowed(false);
         peaksZoomManager.start();
-    }
-
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
     }
 }
