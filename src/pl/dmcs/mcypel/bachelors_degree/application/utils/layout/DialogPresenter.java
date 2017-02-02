@@ -63,7 +63,7 @@ public final class DialogPresenter {
         setListener(exDataCheckBox, isExDataButtonSelectedProperty);
         vBox.getChildren().add(exDataCheckBox);
 
-        dialog.setTitle("Choose configuration for " + title.toString().toLowerCase());
+        dialog.setTitle(title.toString());
         dialog.getDialogPane().setContent(vBox);
         dialog.getDialogPane().getButtonTypes().add(okButton);
         dialog.getDialogPane().getButtonTypes().add(cancelButton);

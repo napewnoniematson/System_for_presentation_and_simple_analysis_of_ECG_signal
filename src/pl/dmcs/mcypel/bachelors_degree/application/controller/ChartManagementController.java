@@ -12,6 +12,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -26,6 +27,7 @@ import pl.dmcs.mcypel.bachelors_degree.application.utils.layout.DialogPresenter;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.ChartSeriesProvider;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.chart.manager.ChartSeriesManager;
 import pl.dmcs.mcypel.bachelors_degree.application.model.signal.ECGSignal;
+import pl.dmcs.mcypel.bachelors_degree.application.utils.parameters.Pulse;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.qrs.Derivative;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.qrs.Detection;
 import pl.dmcs.mcypel.bachelors_degree.application.utils.qrs.Integral;
@@ -60,6 +62,7 @@ public class ChartManagementController{
     private LineChart ecgLineChart, ecgLineChartPeaks;
     private NumberAxis xAxis, xAxisP;
     private NumberAxis yAxis, yAxisP;
+    private Label pulseLbl;
 
 //    private int lowerBound, upperBound;
     private BooleanBinding disablePreviousBinding, disableNextBinding;
@@ -69,15 +72,18 @@ public class ChartManagementController{
     private IntegerProperty diffProperty = new SimpleIntegerProperty();
     private IntegerProperty currentChannel = new SimpleIntegerProperty();
     private float[][] filteredSignal, peaksSignal;
-
+    private float samplingFrequency = 0;
     private ChartSeriesManager seriesManager, peaksManager;
 
-    public void runManager(ECGSignal ecgSignal, int channels, ChartPresentationController chartPresentationController) {
+    public void runManager(ECGSignal ecgSignal, int channels, ChartPresentationController chartPresentationController,
+                           ExaminationDataController examinationDataController) {
         initChartElements(chartPresentationController);
         initChannelMenu(channels);
+        pulseLbl = examinationDataController.getPulseLbl();
         float min = Math.min(ecgSignal.getChannel(0), 1000, 2000);
         float max = Math.max(ecgSignal.getChannel(0), 1000, 2000);
-        filteredSignal = InputSignalFilter.filterSignals(ecgSignal.getAllData(), ecgSignal.getSamplingFrequency(), LP_FREQ, HP_FREQ, min, max);
+        samplingFrequency = ecgSignal.getSamplingFrequency();
+        filteredSignal = InputSignalFilter.filterSignals(ecgSignal.getAllData(), samplingFrequency, LP_FREQ, HP_FREQ, min, max);
         seriesManager = new ChartSeriesProvider(filteredSignal, channels);
         disablePreviousBinding = disableNextBinding = diffProperty.greaterThan(diffProperty);
         peaksSignal = new float[channels][];
@@ -89,6 +95,7 @@ public class ChartManagementController{
 
         insertNormalData(seriesManager.generateSeries(LOW_BOUND, LOW_BOUND + BOUND_DIFFERENCE));
         insertPeaksData(peaksManager.generateSeries(LOW_BOUND, LOW_BOUND + BOUND_DIFFERENCE));
+        pulseLbl.setText(pulse());
         disableButtons(false);
         bind();
     }
@@ -97,12 +104,14 @@ public class ChartManagementController{
     private void next() {
         insertNormalData(seriesManager.getNextSeries());
         insertPeaksData(peaksManager.getNextSeries());
+        pulseLbl.setText(pulse());
     }
 
     @FXML
     private void previous() {
         insertNormalData(seriesManager.getPreviousSeries());
         insertPeaksData(peaksManager.getPreviousSeries());
+        pulseLbl.setText(pulse());
     }
 
     @FXML
@@ -115,6 +124,7 @@ public class ChartManagementController{
 
             insertNormalData(seriesManager.generateSeries(lower, upper));
             insertPeaksData(peaksManager.generateSeries(lower, upper));
+            pulseLbl.setText(pulse());
         }catch (IllegalArgumentException e){
             DialogPresenter.showInfoDialog("Generate info",
                     "Bound must be the number higher then zero and less then number of samples");
@@ -210,5 +220,10 @@ public class ChartManagementController{
         previousButton.disableProperty().bind(disablePreviousBinding);
         nextButton.disableProperty().bind(disableNextBinding);
     }
+
+    private String pulse() {
+        return String.valueOf(Pulse.calculate(peaksSignal[currentChannel.get()], lowerBoundProperty, upperBoundProperty, samplingFrequency));
+    }
+
 }
 

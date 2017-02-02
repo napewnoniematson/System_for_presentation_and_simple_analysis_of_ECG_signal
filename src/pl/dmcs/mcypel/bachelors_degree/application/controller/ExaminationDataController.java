@@ -16,7 +16,7 @@ public class ExaminationDataController {
 
     @FXML
     private Label namePatientLbl,surnamePatientLbl, examinationDateLbl, examinationTimeLbl,
-            folderNameLbl, frequencyLbl;
+            folderNameLbl, frequencyLbl, pulseLbl;
 
     public void showDataOnView(String folderName, int frequency, ExaminationData examinationData) {
         folderNameLbl.setText(folderName);
@@ -72,5 +72,9 @@ public class ExaminationDataController {
             return "0" + date;
         else
             return String.valueOf(date);
+    }
+
+    public Label getPulseLbl() {
+        return pulseLbl;
     }
 }

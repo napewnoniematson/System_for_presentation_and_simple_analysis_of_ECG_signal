@@ -51,7 +51,8 @@ public class MainController implements Initializable{
             loadManager = new DataLoader(folderChooseManager);
             ecgSignal = loadManager.loadSignal(); // returns ECGSignal
             examinationData = loadManager.loadExaminationData();
-            includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber(), includedPresentationController);
+            includedViewController.runManager(ecgSignal, ecgSignal.getChannelsNumber(), includedPresentationController,
+                    includedExaminationDataViewController);
             includedExaminationDataViewController.showDataOnView(folderChooseManager.getFolderName(),
                     ecgSignal.getSamplingFrequency(),examinationData);
         } catch (IOException e) {
