@@ -1,6 +1,5 @@
-# System do prezentacji i podstawowej analizy sygnału EKG
-
-# :heart: 
+# System do prezentacji i podstawowej analizy sygnału EKG :heart:
+ 
 
 Aplikacja ma za zadanie umożliwić użytkownikowi przeglądanie zapisów Holterowskich.
 Użytkownik ma możliwość:
@@ -17,9 +16,7 @@ Aplikacja działa dla danych pochodzących z urządzeń firmy CardioScan oraz Re
 ---
 
 
-# System for presentation and simple analysis of ECG signal
-
-# :heart:
+# System for presentation and simple analysis of ECG signal :heart:
 
 Application allows view Holter recordings
 User has a possibility to:
